@@ -1,0 +1,57 @@
+<include file='Public/header'/>
+<div class="clear"></div>
+<!-- <div class="nybanner" style="background:url(images/nybanner2.jpg) center no-repeat;"></div> -->
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <?php foreach($top as $v):?>
+      <li _src="url(<?php echo $v['pic'];?>)" style="background:#E2025E center 0 no-repeat;"><a target="_blank" href="{:U('play/view?id=')}<?php echo $v['id'];?>"></a></li>
+    <?php endforeach;?>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span> </div>
+  <script type="text/javascript">
+  jQuery(".fullSlide").hover(function() {
+      jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+  },
+  function() {
+      jQuery(this).find(".prev,.next").fadeOut()
+  });
+  jQuery(".fullSlide").slide({
+      titCell: ".hd ul",
+      mainCell: ".bd ul",
+      effect: "fold",
+      autoPlay: true,
+      autoPage: true,
+      trigger: "click",
+      startFun: function(i) {
+          var curLi = jQuery(".fullSlide .bd li").eq(i);
+          if ( !! curLi.attr("_src")) {
+              curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+          }
+      }
+  });
+  </script>
+  <!--中间内容-->
+  <div id="subbox">
+  <div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 夏季活动</div>
+  <div class="mainbox">
+  <div class="titlei"><h1>夏季活动</h1></div>
+  <div class="menu"><h2><a class="on">活动列表</a></h2></div>
+  <?php foreach($summer as $v):?>
+  <div class="con_news">
+          <dt><img src="<?php echo $v['pic'];?>" alt="无图片" width="222" height="155" /></dt>
+          <dd>
+            <h1><a href="{:U('Play/view?id=')}<php echo $v['id'];?>"><?php echo $v['title'];?></a></h1>
+            <p><?php echo $v['descs'];?></p>
+            <span><a href="{:U('post/view?id=')}<?php echo $v['id'];?>" class="morexx"> </a></span>
+  				</dd>
+  </div>
+  <?php endforeach;?>
+  </div>
+  </div>
+<include file='Public/footer'/>

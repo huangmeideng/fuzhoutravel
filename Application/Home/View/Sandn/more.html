@@ -1,0 +1,106 @@
+<include file="Public/header"/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 攻略与游记</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--旅游企业-->
+<div class="column4">
+<div class="title5"><h1>攻略与游记</h1></div>
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+  <ul class="layui-tab-title">
+    <li class="layui-this" style="font-size:large;">官方攻略</li>
+    <li style="font-size:large;">个人游记</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <?php foreach($list as $v):?>
+       <div class='sandn-item'>
+           <div class='sandn-img' style="float:left;margin:0 18px 0 0;">
+               <a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" alt="" style="width:220px;height:150px;"></a>
+           </div>
+           <div class='sandn-main'>
+               <div class="sandn-header">
+                   <h2 class='sandn-title' style="font-size:18px;height:26px;line-height: 26px;overflow: hidden;padding: 0 86px 0 0;">
+                       <em style="color:#f60;">【官方攻略】</em>
+                       <a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a>
+                    </h2>
+                    <div class='sandn-praise' style="display:inline-block;height: 26px;line-height: 26px;background: #feefe5;padding: 0 37px 0 13px;color: #f60;-webkit-border-radius: 5px;border-radius: 5px;"><?php echo $v['praise'];?>个赞</div>
+                    <div class='sandn-author' style="padding:5px 0 0;color: #999;"><i class='time'>发表时间:<?php echo $v['time'];?></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='author' style="display:inline-block;padding-right: 20px;">作者:福州旅游</i></div>
+               </div>
+               <div class="sandn-content">
+                   <div class='sandn-text' style="overflow:hidden;height:50px;margin: 10px 10px 10px 0;line-height: 24px;color: #666;">
+                       <?php echo $v['reason'];?>
+                   </div>
+                   <div class='sandn-line' style="height:29px;overflow:hidden;zoom: 1;">
+                      <a class='line-title' style="float:left;padding: 3px 10px 0 0;">途经地区:</a>
+                      <a class='line-spots' style="float: left;border: 1px solid #bfbfbf;background: #fff;padding: 3px 10px;"><?php echo $v['areas'];?></a>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <hr>
+       <?php endforeach;?>
+       <div class='paging text-right' style="text-align:center;">{$page}</div>
+    </div>
+    <div class="layui-tab-item">
+        <?php foreach($list1 as $v):?>
+       <div class='sandn-item'>
+           <div class='sandn-img' style="float:left;margin:0 18px 0 0;">
+               <a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" alt="" style="width:220px;height:150px;"></a>
+           </div>
+           <div class='sandn-main'>
+               <div class="sandn-header">
+                   <h2 class='sandn-title' style="font-size:18px;height:26px;line-height: 26px;overflow: hidden;padding: 0 86px 0 0;">
+                       <em style="color:#f60;">【个人游记】</em>
+                       <a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a>
+                    </h2>
+                    <div class='sandn-praise' style="display:inline-block;height: 26px;line-height: 26px;background: #feefe5;padding: 0 37px 0 13px;color: #f60;-webkit-border-radius: 5px;border-radius: 5px;"><?php echo $v['praise'];?>个赞</div>
+                    <div class='sandn-author' style="padding:5px 0 0;color: #999;"><i class='time'>发表时间:<?php echo $v['time'];?></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='author' style="display:inline-block;padding-right: 20px;">作者:<?php echo $v['username'];?></i></div>
+               </div>
+               <div class="sandn-content">
+                   <div class='sandn-text' style="overflow:hidden;height:50px;margin: 10px 10px 10px 0;line-height: 24px;color: #666;">
+                      
+                   </div>
+                   <div class='sandn-line' style="height:29px;overflow:hidden;zoom: 1;">
+                      <a class='line-title' style="float:left;padding: 3px 10px 0 0;">途经地区:</a>
+                      <a class='line-spots' style="float: left;border: 1px solid #bfbfbf;background: #fff;padding: 3px 10px;"><?php echo $v['areas'];?></a>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <hr>
+       <?php endforeach;?>
+       <div class='paging text-right' style="text-align:center;">{$page1}</div>
+    </div>
+  </div>
+</div> 
+</div>
+
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--景点推荐-->
+<div class="column5">
+<div class="title5"><a href="{:U('Spot/index')}">更多></a><h1>景点推荐</h1></div>
+<?php foreach($hotspot as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h2><p><?php echo mb_substr($v['descs'],0,20).'...';?></p>
+</div>
+</div>
+<?php endforeach;?>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<script>
+layui.use('element', function(){
+  var element = layui.element();
+});
+</script>
+<include file="Public/footer"/>

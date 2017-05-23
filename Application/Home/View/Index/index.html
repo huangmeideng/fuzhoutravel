@@ -1,0 +1,292 @@
+﻿<include file="Public:header"/>
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <li _src="url(__STATIC__/images/lunbotu1.jpg)" style="background:#E2025E center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+      <li _src="url(__STATIC__/images/lunbotu2.jpg)" style="background:#DED5A1 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+      <li _src="url(__STATIC__/images/lunbotu3.jpg)" style="background:#B8CED1 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+      <li _src="url(__STATIC__/images/lunbotu4.jpg)" style="background:#98918E center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+      <li _src="url(__STATIC__/images/lunbotu5.jpg)" style="background:#FEFF19 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span>
+  </div>
+<script type="text/javascript">
+jQuery(".fullSlide").hover(function() {
+    jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function() {
+    jQuery(this).find(".prev,.next").fadeOut()
+});
+jQuery(".fullSlide").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".fullSlide .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+<!--中间内容-->
+<div id="container">
+  <div class="con">
+    <!--精彩活动-->
+    <div class="active">
+      <div class="title">
+        <a href="{:U('Play/index')}"><h1>精彩活动</h1></a>
+      </div>
+      <div class="picshow">
+	  <DIV class='syFocusThumb'>
+          <DIV id='syFocusThumb' class=sliderwrapper>
+            <?php foreach($data2 as $value):?>
+            <DIV class='contentdiv'>
+              <DIV class='dPic'><A href="{:U('play/view?id=')}<?php echo $value['id'];?>" target=_blank><IMG  src="<?php echo $value['pic'];?>" width=419 height='319'></A></DIV>
+            </DIV>
+          <?php endforeach;?>
+          </DIV>
+          <DIV id=paginate-syFocusThumb class=pagination><I id=prev class=prev title='上一幅'></I>
+            <DIV class=thumbWrap>
+              <DIV class=holder>
+                <?php foreach($data2 as $value):?>
+                <I class=toc><A href="{:U('play/view?id=')}<?php echo $value['id'];?>" target=_blank><IMG  src="<?php echo $value['pic'];?>" width='92' height='67'></A></I>
+                <?php endforeach;?>
+            </DIV>
+            </DIV>
+            <I id=next class=next title=下一幅></I></DIV>
+          <SCRIPT type='text/javascript'>
+//焦点图初始化
+featuredcontentslider.init({
+id: "syFocusThumb", //指定ID
+contentsource: ["inline", ""], //有效值: ["inline", ""] 嵌入html or ["ajax", "path_to_file"] 嵌入utf-8文件
+toc: "scroll", //有效值: "#increment" 标记序号, "markup", ["markup1", "markup2", etc]标记具体内容
+nextprev: ["", ""], //next_pre标记 ，如："上一条" "下一条"，设置为 "" 为不出现
+revealtype: "click", //鼠标事件有效值: “click” or “mouseover”
+enablefade: [false, 0.15], // 切换褪色度 “true”or “false”
+autorotate: [true, 3500], // 切换停留时间 “true”or “false”
+delay: 0, //事件延迟时间(默认值：0，单位：ms)
+//playtab: 4, 默认的播放舌签
+onChange: function(previndex, curindex){ //触发处理；previndex 触发处理上一个记录； curindex 触发处理上一个记录 可以自定义函数控制；参考亲子网首页“亲子部落-相册”
+}
+});
+</SCRIPT>
+        </DIV>
+	  </div>
+    </div>
+    <!--旅游资讯-->
+    <div class="zixun">
+      <div class="title">
+        <a href="{:U('Post/index')}"><h1>旅游资讯</h1></a>
+      </div>
+      <ul class="list">
+        <?php foreach($data as $v):?>
+        <li><span><?php echo $v['time'];?></span><a href="{:U('post/view?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></li>
+      <?php endforeach;?>
+      </ul>
+      <ul class="list1">
+        <?php foreach($data1 as $v):?>
+        <li class="li<?php echo $key;?>"><a href="{:U('post/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" witdth='130' height='80'/><span><?php echo $v['title'];?></span></a></li>
+      <?php endforeach;?>
+      </ul>
+    </div>
+    <!--出行服务-->
+    <div class="cxfw">
+      <div class="title">
+        <h1>出行服务</h1>
+      </div>
+      <ul>
+        <li class="cx1"><a href="{:U('Sandn/index')}">攻略与游记</a></li>
+        <li class="cx2"><a href="{:U('Spot/index')}">景区名录</a></li>
+        <li class="cx3"><a href="{:U('Agency/index')}">旅行社名录</a></li>
+        <li class="cx4"><a href="{:U('Hotels/index')}">酒店宾馆</a></li>
+        <li class="cx5"><a href="{:U('Page/index')}">福州概况</a></li>
+        <li class="cx6"><a href="{:U('Fands/index')}" >福州美食特产</a></li>
+        <li class="cx7"><a href="javascript:;" onclick="complain()">投诉留言</a></li>
+        <li class="cx8"><a href="javascript:;" onclick="weather()">天气预报</a></li>
+      </ul>
+    </div>
+  </div>
+  <!--畅游福州-->
+  <div class="con2">
+    <div class="cyfy">
+      <!--畅游福州-->
+      <div class="cyleft">
+        <a href="{:U('spot/index')}"><h1>畅游福州</h1></a>
+        <ul class="list4">
+          <?php foreach($leftspot as $k=>$v):?>
+          <li <if condition="$k%2 eq 0">class='rw1'<else/>class='rw2'</if>><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></li>
+        <?php endforeach;?>
+        </ul>
+      </div>
+      <ul class="list3">
+        <li class='cy1'>
+        <div class="fullSlide" style="width:479px;height:336px;">
+          <div class="bd">
+            <ul>
+              <?php foreach($hotspot as $v):?>
+              <li class='src cy1'><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width='479' height='336' /><span><?php echo $v['name'];?></span></a></li>
+            <?php endforeach;?>
+            </ul>
+          </div>
+          <div class="hd">
+          </div>
+          <span class="prev"></span> <span class="next"></span> </div>
+        </li>
+        <script type="text/javascript">
+        jQuery(".fullSlide").hover(function() {
+            jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+        },
+        function() {
+            jQuery(this).find(".prev,.next").fadeOut()
+        });
+        jQuery(".fullSlide").slide({
+            titCell: ".hd ul",
+            mainCell: ".bd ul",
+            effect: "fold",
+            autoPlay: true,
+            autoPage: true,
+            trigger: "click",
+            startFun: function(i) {
+                var curLi = jQuery(".fullSlide .bd li").eq(i);
+                if ( !! curLi.attr(".src")) {
+                    curLi.css("background-image", curLi.attr(".src")).removeAttr(".src")
+                }
+            }
+        });
+        </script>
+        <?php foreach($rightspot as $k=>$v):?>
+        <li class="cy2"><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="227" height="160"/><span><?php echo $v['name'];?></span></a></li>
+      <?php endforeach;?>
+      </ul>
+    </div>
+  </div>
+  <!--主题线路-->
+  <div class="con3">
+    <div class="ztxl">
+      <div class="ztleft">
+        <a href="{:U('Route/index')}"><h1>主题线路</h1></a>
+        <ul class="list4">
+          <?php foreach($type as $k=>$v):?>
+          <li <if condition="$k%2 eq 0">class="rw1"<else/>class='rw2'</if> ><a href="#">{$v}</a></li>
+          <?php endforeach;?>
+        </ul>
+      </div>
+      <ul class="list5">
+        <?php foreach($route as $key=>$v):?>
+        <li class="xl<?php echo $key+1;?>">
+          <div class="imgteaser"><a href="#"><img src="<?php echo $v['pic'];?>" <?php if($key==2){echo "width='480' height='372'";}else{echo "width='227' height='160'";}?>/><span class="lxhover">
+            <?php echo mb_substr($v['descs'],0,20).'...';?>
+</span></a></div>
+          <div class="titles"><a href="#"><?php echo $v['name'];?></a></div>
+        </li>
+        <?php endforeach;?>
+      </ul>
+    </div>
+  </div>
+  <!--玩转福州-->
+  <div class="wancon">
+    <div class="wan">
+      <div class="wzleft">
+        <a href="{:U('fands/index')}"><h1>玩转福州</h1></a>
+        <ul class="list4">
+          <?php foreach($food2 as $k=>$v):?>
+          <li <if condition="$k%2 eq 0">class='rw1'<else/>class='rw2'</if>><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></li>
+        <?php endforeach;?>
+        </ul>
+      </div>
+      <div class="wzright">
+        <div class="title2">
+          <h1 class="hover" id="one1" onmouseover="setTab('one',1,6)"><a href="{:U('fands/food')}">福州美食</a></h1>
+          <h1 id="one2" onmouseover="setTab('one',2,6)"><a href="{:U('fands/techang')}">福州特产</a></h1>
+        </div>
+        <div class="clear"></div>
+        <div class="wzcon" id="con_one_1">
+          <div class="msjj"> <span class="msimg"><img src="{$food3.pic}" width="226" height="158" /></span> <span class="mstitle"><a href="{:U('fands/view?id=')}{$food3.id}">{$food3.name}</a></span>
+            <p>{$food3.descs}</p>
+          </div>
+          <?php foreach($food1 as $k=>$v):?>
+          <div <if condition='$k eq 0'>class="column1"<elseif condition='$k eq 1'/>class="column1" style="float:right;"<elseif condition='$k eq 2'/>class="column1" style="margin-top:10px;"<else/>class="column1" style="margin-top:10px; float:right;"</if>>
+            <div class="xgimg"> <span class="picimg"><img src="<?php echo $v['pic'];?>" width="184" height="128" /></span> <span class="xgtitle"><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></span></div>
+            <div class="xgjj"><?php echo $v['descs'];?></div>
+          </div>
+        <?php endforeach;?>
+        </div>
+
+		<div class="wzcon" id="con_one_2" style="display:none;">
+          <div class="msjj"> <span class="msimg"><img src="{$techang3.pic}" width="226" height="158" /></span> <span class="mstitle"><a href="{:U('fands/view?id=')}{$techang3.id}">{$techang3.name}</a></span>
+            <p>{$techang3.descs}</p>
+          </div>
+          <?php foreach($techang1 as $k=>$v):?>
+          <div <if condition='$k eq 0'>class="column1"<elseif condition='$k eq 1'/>class="column1" style="float:right;"<elseif condition='$k eq 2'/>class="column1" style="margin-top:10px;"<else/>class="column1" style="margin-top:10px; float:right;"</if>>
+            <div class="xgimg"> <span class="picimg"><img src="<?php echo $v['pic'];?>" width="184" height="128" /></span> <span class="xgtitle"><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></span></div>
+            <div class="xgjj"><?php echo $v['descs'];?></div>
+          </div>
+        <?php endforeach;?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--旅游攻略-->
+  <div class="con4">
+    <div class="lygl">
+      <div class="lyleft">
+        <a href="{:U('Sandn/index')}"><h1>旅游攻略</h1></a>
+        <ul class="list4">
+          <li class="rw1"><a href="{:U('Sandn/more')}">官方攻略</a></li>
+          <li class="rw2"><a href="{:U('Sandn/more')}">个人游记</a></li>
+          <li class="rw1"><a href="{:U('Note/add')}">游记发布</a></li>
+        </ul>
+      </div>
+      <div class="lyright">
+        <ul class="lylist">
+          <?php foreach($strategy as $v):?>
+          <li>
+            <div class="lyimg"><img src="<?php echo $v['pic'];?>" width="121" height="85" /></div>
+            <h2><a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></h2>
+            <p><?php echo mb_substr($v['reason'],0,20).'...';?></p>
+          </li>
+          <?php endforeach;?>
+        </ul>
+        <ul class="list6">
+          <?php foreach($note as $key=>$v):?>
+          <li class="gl<?php echo $key+1;?>"><a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" /></a></li>
+          <?php endforeach;?>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  layui.use('layer',function(){
+    var layer=layui.layer;
+  });
+  function weather(){
+    layer.open({
+    type: 2,
+    title: '福州天气',
+    shadeClose: true,
+    shade: 0.5,
+    area: ['300px', '90%'],
+    content: "{:U('Index/weather')}" //iframe的url
+}); 
+  }
+  function complain(){
+    layer.open({
+      type:2,
+      title:'我要投诉',
+      area:['580px','320px'],
+      resize:false,
+      content:"{:U('Index/complain')}"
+    });
+  }
+</script>
+<include file="Public:footer"/>

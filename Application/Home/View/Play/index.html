@@ -1,0 +1,113 @@
+<include file="Public/header"/>
+<!-- <div class="nybanner" style="background:url(images/nybanner3.jpg) center no-repeat;"></div> -->
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <?php foreach($top as $v):?>
+      <li _src="url(<?php echo $v['pic'];?>)" style="background:#E2025E center 0 no-repeat;"><a target="_blank" href="{:U('play/view?id=')}<?php echo $v['id'];?>"></a></li>
+    <?php endforeach;?>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span> </div>
+  <script type="text/javascript">
+  jQuery(".fullSlide").hover(function() {
+      jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+  },
+  function() {
+      jQuery(this).find(".prev,.next").fadeOut()
+  });
+  jQuery(".fullSlide").slide({
+      titCell: ".hd ul",
+      mainCell: ".bd ul",
+      effect: "fold",
+      autoPlay: true,
+      autoPage: true,
+      trigger: "click",
+      startFun: function(i) {
+          var curLi = jQuery(".fullSlide .bd li").eq(i);
+          if ( !! curLi.attr("_src")) {
+              curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+          }
+      }
+  });
+  </script>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 精彩活动</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+  <!--活动展示-->
+<!--春-->
+<div class="column4">
+<div class="title5"><a href="{:U('play/spring')}">更多></a><h1>春</h1></div>
+<ul class="list9">
+  <?php foreach($spring as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('play/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('play/view?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+<!--夏-->
+<div class="column4">
+<div class="title5"><a href="{:U('play/summer')}">更多></a><h1>夏</h1></div>
+<ul class="list9">
+  <?php foreach($summer as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('play/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('play/view?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+<!--秋-->
+<div class="column4">
+<div class="title5"><a href="{:U('play/autumn')}">更多></a><h1>秋</h1></div>
+<ul class="list9">
+  <?php foreach($autumn as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('play/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('play/view?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+<!--冬-->
+<div class="column4">
+<div class="title5"><a href="{:U('play/winter')}">更多></a><h1>冬</h1></div>
+<ul class="list9">
+  <?php foreach($winter as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('play/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('play/view?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--热门活动-->
+<div class="column5">
+<div class="title5"><a href="{:U('play/hot')}">更多></a><h1>热门活动</h1></div>
+<?php foreach($hot as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('play/view?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></h2><p><?php echo $v['descs'];?></p>		</div>
+</div>
+<?php endforeach;?>
+<!-- <div class="clear"></div> -->
+</div>
+</div>
+
+</div>
+
+</div>
+
+<include file='Public/footer'/>

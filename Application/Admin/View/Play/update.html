@@ -1,0 +1,76 @@
+<include file="Public/header" title="编辑玩转福州" />
+<div id="page-wrapper">
+    <form method="post" action="{:U('play/update?id=')}{$category.id}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="play-title">名称</label>
+            <input type="text" name="title" class="form-control" value="{$play.title}" id="play-title" placeholder="输入玩转福州名称">
+        </div>
+        <div class="form-group">
+            <label for="play-cate">分类</label>
+            <select name="cate_id" id="play-cate" class="form-control">
+                <foreach name="category" item="v">
+                    <option value="{$v.id}" <?php if($play['cate_id'] == $v['id']) {echo 'selected="selected"' ;}?>>{$v.html} {$v.title}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class='form-group'>
+          <label for='play-descs'>简介</label>
+          <textarea id="play-descs" class='form-control' name='descs'>{$play.descs}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="play-pic">玩转福州图片</label>
+            <input type="file" name="pic" id="play-pic" class="form-control">
+            <if condition="$play[pic] neq ''">
+            <img src="__ROOT__/{$play.pic}" height="50px">
+            <else/>
+            无缩略图
+            </if>
+        </div>
+        <div class="form-group">
+            <label for="play-content">内容</label>
+            <script id="play-content" name="content" type="text/plain">{$play.content|htmlspecialchars_decode}</script>
+        </div>
+        <div class="form-group">
+            <label>资讯类型</label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="1" <if condition="$play.type eq 1">checked="checked"</if> >春
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="2" <if condition="$play.type eq 2">checked="checked"</if>>夏
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="3" <if condition="$play.type eq 3">checked="checked"</if>>秋
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="4" <if condition="$play.type eq 4">checked="checked"</if>>冬
+            </label>
+        </div>
+        <div class="form-group">
+            <label>是否热门</label>
+            <label class="radio-inline">
+              <input type="radio" name="ishot" id="ishot" value="0" <if condition="$play.ishot eq 0">checked="checked"</if> >否
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="ishot" id="ishot" value="1" <if condition="$play.ishot eq 1">checked="checked"</if>>是
+            </label>
+        </div>
+        <input type="hidden" name="id" value="{$play.id}">
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('play-content',{
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo','bold', 'italic', 'underline','fontborder', 'strikethrough', '|','simpleupload', 'insertimage','attachment','emotion','link','unlink', '|', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','searchreplace', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc'],
+            ['inserttable','insertrow', 'insertcol','mergeright', 'mergedown','deleterow', 'deletecol','splittorows','splittocols', 'splittocells','deletecaption','inserttitle', 'mergecells', 'deletetable','insertparagraphbeforetable', 'paragraph','fontsize','fontfamily']
+        ],
+        initialFrameHeight:500,
+        zIndex:100
+    });
+</script>
+<include file="Public/footer" />

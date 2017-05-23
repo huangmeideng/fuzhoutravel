@@ -1,0 +1,103 @@
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  wx.config({
+    debug: false,
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'onMenuShareQZone'
+    ]
+  });
+  wx.ready(function () {
+    // 在这里调用 API
+        //获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareTimeline({
+            title: 'ThinkAdmin分享标题', // ThinkAdmin分享标题
+            link:  window.location.href, // 分享链接
+            imgUrl: '<?php echo $signPackage["logo"];?>', // 分享图标
+        });
+        //获取“分享给朋友”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareAppMessage({
+            title: 'ThinkAdmin分享标题', // ThinkAdmin分享标题
+            desc: 'ThinkAdmin通用后台管理系统,博客：http://www.cnsecer.com', // 分享描述
+            link:  window.location.href, // 分享链接
+            imgUrl: '<?php echo $signPackage["logo"];?>', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        });
+        //获取“分享到QQ”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareQQ({
+            title: 'ThinkAdmin分享标题', // ThinkAdmin分享标题
+            title: 'ThinkAdmin分享标题', // ThinkAdmin分享标题
+            desc: 'ThinkAdmin通用后台管理系统,博客：http://www.cnsecer.com', // 分享描述
+            link:  window.location.href, // 分享链接
+            imgUrl: '<?php echo $signPackage["logo"];?>', // 分享图标
+        });
+        //获取“分享到腾讯微博”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareWeibo({
+            title: 'ThinkAdmin分享标题', // ThinkAdmin分享标题
+            desc: 'ThinkAdmin通用后台管理系统,博客：http://www.cnsecer.com', // 分享描述
+            link:  window.location.href, // 分享链接
+            imgUrl: '<?php echo $signPackage["logo"];?>', // 分享图标
+
+        });
+        //获取“分享到QQ空间”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareQZone({
+            title: 'ThinkAdmin分享标题', // ThinkAdmin分享标题
+            desc: 'ThinkAdmin通用后台管理系统,博客：http://www.cnsecer.com', // 分享描述
+            link:  window.location.href, // 分享链接
+            imgUrl: '<?php echo $signPackage["logo"];?>', // 分享图标
+        });
+  });
+</script>
+<!--底部-->
+<div id="footer">
+<div class="links">
+    <!--下面是向左滚动代码-->
+    <div id="colee_left" style="overflow:hidden;width:1200px; padding:0px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td id="colee_left1" valign="top"><table cellpadding="2" cellspacing="0" border="0">
+              <tr>
+                  <?php foreach($links as $v):?>
+                <td class="td1"><a href="<?php echo $v['url'];?>" target="_blank"><img src="<?php echo $v['pic'];?>" width="135" height="42" /></a></td>
+                <?php endforeach;?>
+              </tr>
+            </table></td>
+          <td id="colee_left2" valign="top"></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+//使用div时，请保证colee_left2与colee_left1是在同一行上.
+var speed=48//速度数值越大速度越慢
+var colee_left2=document.getElementById("colee_left2");
+var colee_left1=document.getElementById("colee_left1");
+var colee_left=document.getElementById("colee_left");
+colee_left2.innerHTML=colee_left1.innerHTML
+function Marquee3(){
+if(colee_left2.offsetWidth-colee_left.scrollLeft<=0)//offsetWidth 是对象的可见宽度
+colee_left.scrollLeft-=colee_left1.offsetWidth//scrollWidth 是对象的实际内容的宽，不包边线宽度
+else{
+colee_left.scrollLeft++
+}
+}
+var MyMar3=setInterval(Marquee3,speed)
+colee_left.onmouseover=function() {clearInterval(MyMar3)}
+colee_left.onmouseout=function() {MyMar3=setInterval(Marquee3,speed)}
+</script>
+    <!--向左滚动代码结束-->
+  </div>
+  <div class="fnav"><a href="#">关于我们</a>|<a href="#">免责条款</a>|<a href="#">加入收藏</a>|<a href="#">设为首页</a></div>
+ <div class="copyright">版权所有：福州市旅游局 电话：0591-83355312 地址：仓山区南江滨西大道东部办公区4座4层  邮编：350007 邮箱：fuzhoutravel@163.com<br />
+    闽ICP备14008899号 Designed by <a href="#">huangmeideng.github.com</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<include file='Public/header'/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('Index/index')}">首页</a> > 美食与特产 > 详情</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--美食详情-->
+<div class="column4">
+<div class="title5">
+     <a href="javascript:;" style="font-size:15px;" onclick="praise('{$data.id}')" id="praise">点赞({$data.praise})</a><a class='layui-icon' style="color:#FF5722;font-size:20px;">&#xe650;</a>
+    <a href="#" style="font-size:15px;" id='share' onclick='share()'>分享</a><a href="#" class="layui-icon" style="color:#5FB878;font-size:20px;" onclick="share()">&#xe641;</a>
+    <if condition="$ifcollection eq 0">
+        <a href="javascript:;" style="font-size:15px;" onclick="collection('{$data.id}','{$data.cate_id}')" id='collection'>收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="collection('{$data.id}','{$data.cate_id}')" id='iconcollection'>&#xe600;</a>
+        <elseif condition="$ifcollection eq 1" />
+         <a href="javascript:;" style="font-size:15px;" onclick="reduce('{$data.id}','{$data.cate_id}')" id='collection'>已收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="reduce('{$data.id}','{$data.cate_id}')" id='iconcollection'>&#xe600;</a>
+    </if>
+    <h1>{$data.name}</h1>
+    </div>
+<div>
+<!-- <span class="lvL"><img src="images/map.jpg" width="304" height="221" /></span> -->
+<!-- <span class="lvR">凤阳山水灵秀，自然景观奇特优美。韭山洞因山暖地灵多滋生野韭而得名，是长江以北少有的大型溶洞。它“深、大、险、奇、古”，“恢宏朴野、大块文章”，被专家誉为“江北第一洞”。狼巷迷谷景区属于典型的岩溶地貌形态，区内森林茂密，怪石林立，沟壑纵横，峡谷幽深，石林、石峰各显其态、变化万千。石巷曲折蜿蜒，时宽时窄，置身其中，仿佛进入仙境迷谷一般。狼巷迷谷还有被称为“华夏第一寺”的禅窟寺。卧牛湖景区水域宽阔，水体洁净，荡舟玩水，其乐无穷。这三个景区相互毗邻，相得益彰，构成了不可多得的有山、有水、有洞、有泉、有寺、有峡谷的凤阳山风景区。凤阳山风景区1987年被列为安徽省风景名胜区，1994年被国家林业部批准为韭山国家森林公园，2009年被国土资源部批准为国家地质公园。</span> -->
+<?php echo htmlspecialchars_decode($data['content'])?>
+</div>
+</div>
+
+
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--推荐-->
+<div class="column5">
+<div class="title5"><h1>推荐美食与特产</h1></div>
+<?php foreach($right as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h2><p><?php echo mb_substr($v['descs'],0,20).'...';?></p>		</div>
+</div>
+<?php endforeach;?>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+     layui.use('layer', function(){
+        var layer = layui.layer;
+        });
+    function collection(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/add?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('收藏成功',{icon:1});
+                     //$('#collection').text('已收藏');
+                     $('#collection').text("已收藏("+data.collection_number+")").attr('onclick',"reduce('{$data.id}','{$data.cate_id}')");
+                     $('#iconcollection').attr('onclick',"reduce('{$data.id}','{$data.cate_id}')");
+                }else{
+                    layer.confirm('收藏失败，请先登录',{icon:2},function(){
+                        window.location.href="{:U('User/login')}";
+                    });
+                }
+            }
+        });
+    }
+    function reduce(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                    layer.msg('删除收藏成功',{icon:1});
+                    $('#collection').text("收藏("+data.collection_number+")").attr('onclick',"collection('{$data.id}','{$data.cate_id}')");
+                    $('#iconcollection').attr('onclick',"collection('{$data.id}','{$data.cate_id}')");
+                }else{
+                    layer.msg('删除收藏失败',{icon:2});
+                }
+            }
+        } 
+        );
+    }
+    function share(){
+        layer.open({
+            type:2,
+            title:'分享',
+            content:["{:U('Fands/share')}",'no'],
+        });
+    }
+    function praise(id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Fands/fands_praise?id=')}"+id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('点赞成功',{icon:1});
+                     $('#praise').text("点赞("+data.praise+")");
+                 }else{
+                     layer.msg('你点过赞了',{icon:2});
+                 }
+            }
+        });
+    }  
+</script>
+<include file='Public/footer'/>

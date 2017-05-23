@@ -1,0 +1,73 @@
+<include file="Public/header"/>
+<div class="clear"></div>
+<!--<div class="nybanner" style="background:url(images/nybanner3.jpg) center no-repeat;"></div>-->
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 游记与攻略</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--置顶攻略-->
+<div class="column4">
+<div class="title5"><a href="{:U('Sandn/more')}">更多></a><h1>置顶攻略</h1></div>
+<div class="lvmap">
+<span class="lvL"><a href="{:U('Sandn/strategyview?id=')}{$top.id}"><img src="{$top.pic}" width="304" height="221" /></a></span>
+<span class="lvR">{$top.reason}</span>
+</div>
+</div>
+<!--官方攻略-->
+<div class="column4">
+<div class="title5"><a href="{:U('Sandn/more')}">更多></a><h1>官方攻略</h1></div>
+<ul class="list9">
+    <?php foreach($strategy as $v):?>
+<li>
+<span class="lypic"><a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></span>
+<span class="lyinfo"><?php echo mb_substr($v['reason'],0,20).'...';?></span>
+</li>
+    <?php endforeach;?>
+</ul>
+</div>
+<!--个人游记-->
+<div class="column4">
+<div class="title5"><a href="{:U('Sandn/more')}">更多></a><h1>个人游记</h1></div>
+<ul class="list9">
+    <?php foreach($note as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--热门游记-->
+<div class="column5">
+<div class="title5"><a href="{:U('Note/add')}"><i class='layui-icon' style="font-size:25px;color:seagreen;">&#xe642;</i>写游记</a><h1>热门游记</h1></div>
+<ul class="list10">
+<?php foreach($hotnote as $v):?>
+<li><img src="<?php echo $v['pic'];?>" style="width:30px;height:30px;"><a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>" style="font-size:16px;color:cornflowerblue;"><?php echo $v['title'];?></a></li>
+<hr>
+<?php endforeach;?>
+</ul>
+<div class="clear"></div>
+</div>
+<!--热门攻略-->
+<div class="column5">
+<div class="title5"><a href="{:U('Sandn/more')}">更多></a><h1>热门攻略</h1></div>
+<?php foreach($hotstrategy as $v):?>
+<div class="topnews1">
+<div class="tjimg"><a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></a></div>
+<div class="tjt"><h2><a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><?php echo $v['title'];?></a></h2><p><?php echo mb_substr($v['reason'],0,20).'...';?></p>		</div>
+</div>
+<?php endforeach;?>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<include file="Public/footer"/>

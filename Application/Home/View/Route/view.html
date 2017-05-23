@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>福州市旅游网</title>
+<meta name="keywords" content="福州市旅游网" />
+<meta name="description" content="福州市旅游网" />
+<link href="__STATIC__/css/whir_css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/superslide.2.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/column.js"></script>
+<script type="text/javascript" src="__STATIC__/js/min_contentslider.js"></script>
+<script src="__STATIC__/user/js/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/user/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+<link href="__STATIC__/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="__STATIC__/user/css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="__STATIC__/user/css/buttons.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="__STATIC__/user/css/font-awesome.min.css"/>
+<link rel="icon" href="__STATIC__/user/img/favicon.ico" mce_href="__STATIC__/user/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="__STATIC__/user/img/favicon.ico">
+<link href="__STATIC__/user/css/bootstrap.min.css" rel="stylesheet">
+<link href="__STATIC__/user/css/dingzhi.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>
+<!--header-->
+<div id="header">
+  <div class="top">
+    <div class="time">
+      <script language='JavaScript'>
+var enabled = 0; today = new Date();
+var day; var date;
+if(today.getDay()==0) day = " 星期日"
+if(today.getDay()==1) day = " 星期一"
+if(today.getDay()==2) day = " 星期二"
+if(today.getDay()==3) day = " 星期三"
+if(today.getDay()==4) day = " 星期四"
+if(today.getDay()==5) day = " 星期五"
+if(today.getDay()==6) day = " 星期六"
+document.fgColor = "000000";
+date = "今天是:" + (today.getFullYear()) + "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + day +"";
+document.write(date);
+// -->
+</script>
+    </div>
+    <div class="weather">
+      <iframe width="450" scrolling="no" height="18" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23555555&icon=3&py=fuzhou&wind=0&num=1"></iframe>
+    </div>
+    <div class="tnav"><if condition="session('?userinfo')"><a href="{:U('User/user')}" style="color:aqua;">欢迎您&nbsp;{:session('userinfo.username')}</a>|<a href="{:U('User/logout')}" style="color:aqua;">退出</a><else/><a href="{:U('User/login')}">登录</a>|<a href="{:U('User/register')}">注册</a></if></div>
+  </div>
+  <div class="nav">
+    <div class="navmenu">
+      <div class="logo"><a href="{:U('Index/index')}"><img src="__STATIC__/images/logo.png" width="190" height="70" /></a></div>
+      <ul>
+        <li><a href="{:U('Page/index')}">福州概况</a></li>
+        <li><a href="{:U('Post/index')}"  class="on">资讯信息</a></li>
+        <li><a href="{:U('Play/index')}">节庆活动</a></li>
+        <li><a href="{:U('Spot/index')}">畅游福州</a></li>
+        <li><a href="{:U('Fands/index')}">美食与特产</a></li>
+        <li><a href="{:U('Route/index')}">主题线路</a></li>
+        <li><a href="{:U('Sandn/index')}">攻略与游记</a></li>
+        <li><a href="{:U('Hotels/index')}">酒店一览</a></li>
+        <li><a href="#">test</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--详情页-->
+<!--detail start here-->
+	<div class="top">
+		<div class="position">
+			<a href="{:U('Index/index')}">首页</a> > 线路详情
+			<foreach name="path" item="v">&nbsp;<a href="{:U('Index/find',array('cid'=>$v['id']))}">{$v.name}</a>&nbsp;&gt;</foreach>&nbsp;{$product.name}
+		</div>
+		<div class="tour-show">
+			<div class="tour-show-left">
+			<img src='{$route.pic}' alt='no' width="690px" height="440px"/>	
+			</div>
+			<div class="tour-show-right">
+				<h1 style="font-size:40px;">{$route.name}</h1>
+                <input type="hidden" id='product' productid="{$route.id}" cateid='{$route.cate_id}' price='{$route.price}'/>
+				<div class="confirm">
+						<span class="price_small_blue">【产品编码】{$route.code}</span><br/>
+				</div>
+				<div class="price-wrap">
+						￥{$route.price}<span class="price_small_red">人起</span>
+				</div>
+				<div class="buy_num">
+				<div class="buy_num_left">
+				</div>	
+				<div class="buy_num_bottom">		
+					购买数量：
+						<input type="button" value="-" class="cnt-btn" onclick="reducenum()"/>
+						<input type="text" value='1' id="num" class="num-btn" />
+						<input type="button" value="+" class="cnt-btn" onclick="addnum()"/>&nbsp;
+						库存：<span class="price_small_red">{$product.stock}</span>
+				</div>
+				</div>
+				<div class="TagList">
+                    	<span title="" class="Tag">{$route.type}</span>
+                    	<span title="" class="Tag">{$route.days}</span>
+ 				</div>
+ 				 <div class="dingzhi-but-wrap">
+					<a href="javascript:;" target="_blank" class="button button-pill button-rounded  button-primary" onclick="buy()">立即预订</a>
+				</div>  
+				</div>
+			</div> 
+		</div> 
+   </div>
+	<div class="detail-wrap">
+		<div class="detail">
+			<div class="detail-left">
+			<!-- start of 产品详情 -->
+			<div class="ProInfoBox" id="product-detail">
+				<p class="TourInfoHeadBig" style="color:tomato;">线路详情</p><br>
+				<?php echo htmlspecialchars_decode($route['content']);?>
+			</div>
+			<div class="tour-info" id="journey-ref">
+				<div class="ProInfoBox">
+				<p class="TourInfoHeadBig" style="color:darkblue;">途经景点</p><br>
+				<p style="font-size:20px;color:red;"> <?php
+            $count=count($spotsname);
+            if($count<=1){
+                echo $spotsname[0];
+            }else{
+                for($i=0;$i<$count;$i++){
+                if($i==($count-1)){
+                    echo $spotsname[$i];
+                    continue;
+                }
+                echo $spotsname[$i].'----';
+            }
+            }
+        ?>
+				</p>
+				</div>
+			</div>			
+			</div>
+			<div class="detail-right">
+				<p>相关线路推荐</p>
+                    <?php foreach($recommend as $v):?>
+					<a href="{:U('Index/product',array('id'=>$v['id']))}" target="_blank" class="Product">
+	                <i class="LazyImgBox"><img src="<?php echo $v['pic'];?>" width="180px" height="180px"></i>
+	                <span><?php echo $v['name'];?></span>
+	                <font>￥<?php echo $v['price'];?></font>
+					</a>
+                    <?php endforeach;?>
+			</div><!--  end of detail-right -->
+		</div><!--detail  end-->	
+	</div>		
+	<!--detail wrap end-->
+	<!--弹出层内容-->
+	<div class="modal bs-example-modal-lg"  onclick="modalHide('#bigModal', '');" id="bigModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" onclick="modalHide('#bigModal', '');" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span  class="sr-only">Close</span></button>
+                <h4 class="modal-title">个人定制</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+layui.use('layer', function(){
+         var layer = layui.layer;
+        });
+function addnum(){
+    //layer.msg($('#num').val());
+     var num=$('#num').val();
+     num=parseInt(num)+1;
+     $('#num').val(num);
+}
+function reducenum(){
+    var num=$('#num').val();
+    num=parseInt(num);
+    if(num==1){
+        layer.msg('购买数量必须大于等于1',{icon:2});
+    }else{
+        num=num-1;
+        $('#num').val(num);
+    }
+}
+function buy(){
+    //var price=parseInt($('#num').val)*parseInt($('#product').attr('price'));
+    var num=parseInt($('#num').val())
+    var price=$('#product').attr('price');
+    var totalprice=num*price;
+    var jsondata={
+        'product_id':$('#product').attr('productid'),
+        'cate_id':$('#product').attr('cateid'),
+        'totalprice':totalprice
+    };
+    $.ajax({
+        type:'post',
+        url:"{:U('Cart/buy')}",
+        data:{getdata:jsondata},
+        dataType:'json',
+        success:function(data){
+            if(data.key==2){
+                layer.msg('请先登录',{icon:2});
+                window.location.href="{:U('User/index')}";
+            }else if(data.key==1){
+                layer.msg('购买成功，请等待客服确认',{icon:1});
+            }else if(data.key==0){
+                layer.msg('购买失败',{icon:2});
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>

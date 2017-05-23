@@ -1,0 +1,137 @@
+<include file='Public/header'/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('Index/index')}">首页</a> > 景点 > 详情</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--景点详情-->
+<div class="column4">
+<div class="title5">
+  <a href="javascript:;" style="font-size:15px;" onclick="praise('{$viewdata.id}')" id="praise">点赞({$viewdata.praise})</a><a class='layui-icon' style="color:#FF5722;font-size:20px;">&#xe650;</a>
+    <a href="#" style="font-size:15px;" id='share' onclick='share()'>分享</a><a href="#" class="layui-icon" style="color:#5FB878;font-size:20px;" onclick="share()">&#xe641;</a>
+    <if condition="$ifcollection eq 0">
+        <a href="javascript:;" style="font-size:15px;" onclick="collection('{$viewdata.id}','{$viewdata.cate_id}')" id='collection'>收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="collection('{$viewdata.id}','{$viewdata.cate_id}')" id='iconcollection'>&#xe600;</a>
+        <elseif condition="$ifcollection eq 1" />
+         <a href="javascript:;" style="font-size:15px;" onclick="reduce('{$viewdata.id}','{$viewdata.cate_id}')" id='collection'>已收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="reduce('{$viewdata.id}','{$viewdata.cate_id}')" id='iconcollection'>&#xe600;</a>
+    </if>
+  <h1>{$viewdata.name}</h1>
+  </div>
+<div class='content_news'>
+<?php echo htmlspecialchars_decode($viewdata['content'])?>
+</div>
+</div>
+
+
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--景点相关信息-->
+<div class="column5">
+<div class="title5">
+  <h1>{$viewdata['name']}</h1>
+  </div>
+<ul>
+<li>&nbsp;&nbsp;&nbsp;<span><strong style="color:red;font-size:15px;">门票信息：</strong><a>{$viewdata.ticket}</a></span></li><br/>
+<li>&nbsp;&nbsp;&nbsp;<span><strong style="color:green;font-size:15px;">详细地址：</strong><a>{$viewdata.address}</a></span></li><br/>
+<li>&nbsp;&nbsp;&nbsp;<span><strong style="color:blue;font-size:15px;">联系电话：</strong><a>{$viewdata.telephone}</a></span></li><br/>
+<li>&nbsp;&nbsp;&nbsp;<sapn><strong style="color:#2aad8e;font-size:15px;">开放时间：</strong><a>{$viewdata.opentime}</a></span></li><br/>
+<li>&nbsp;&nbsp;&nbsp;<sapn><strong style="color:#a20cdf;font-size:15px;">游玩时间：</strong><a>{$viewdata.playtime}</a></span></li><br/>
+<li>&nbsp;&nbsp;&nbsp;<sapn><strong style="color:#e359eb;font-size:15px;">最佳季节：</strong><a>{$viewdata.goodtime}</a></span></li><br/>
+</ul>
+<div class="clear"></div>
+</div>
+<!--附近景点-->
+<div class="column5">
+<div class="title5"><h1>附近景点</h1></div>
+<?php foreach($fjdata as $v):?>
+<div>
+<ul class='list11'>
+  <li>
+<span class="lypic"><a  href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></span>
+</li>
+</ul>
+</div>
+<?php endforeach;?>
+<div class="clear"></div>
+</div>
+<!--附近酒店-->
+<div class="column5">
+<div class="title5"><h1>附近酒店</h1></div>
+<?php foreach($hotel as $v):?>
+<div>
+<ul class='list11'>
+  <li>
+<span class="lypic"><a  href="{:U('Hotels/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('Hotels/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></span>
+</li>
+</ul>
+</div>
+<?php endforeach;?>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+     layui.use('layer', function(){
+        var layer = layui.layer;
+        });
+    function collection(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/add?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('收藏成功',{icon:1});
+                     //$('#collection').text('已收藏');
+                     $('#collection').text("已收藏("+data.collection_number+")").attr('onclick',"reduce('{$viewdata.id}','{$viewdata.cate_id}')");
+                     $('#iconcollection').attr('onclick',"reduce('{$viewdata.id}','{$viewdata.cate_id}')");
+                }else{
+                    layer.confirm('收藏失败，请先登录',{icon:2},function(){
+                        window.location.href="{:U('User/login')}";
+                    });
+                }
+            }
+        });
+    }
+    function reduce(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                    layer.msg('删除收藏成功',{icon:1});
+                    $('#collection').text("收藏("+data.collection_number+")").attr('onclick',"collection('{$viewdata.id}','{$viewdata.cate_id}')");
+                    $('#iconcollection').attr('onclick',"collection('{$viewdata.id}','{$viewdata.cate_id}')");
+                }else{
+                    layer.msg('删除收藏失败',{icon:2});
+                }
+            }
+        } 
+        );
+    }
+    function share(){
+        layer.open({
+            type:2,
+            title:'分享',
+            content:["{:U('Spot/share')}",'no'],
+        });
+    }
+    function praise(id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Spot/spot_praise?id=')}"+id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('点赞成功',{icon:1});
+                     $('#praise').text("点赞("+data.praise+")");
+                 }else{
+                     layer.msg('你点过赞了',{icon:2});
+                 }
+            }
+        });
+    }  
+</script>
+<include file='Public/footer'/>

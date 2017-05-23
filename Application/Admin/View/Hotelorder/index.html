@@ -1,0 +1,50 @@
+<include file="Public/header" title="订单列表" />
+<div id="page-wrapper">
+
+	<div class="row">
+		<div class="col-md-6">
+			<form action="{:U('Hotelorder/index')}" method="post">
+				<div class="form-group input-group">
+					<input type="text" class="form-control" name="key" placeholder="输入订单所有人或者酒店名关键词搜索">
+					<span class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                    </span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>编号</th>
+                <th>预订酒店</th>
+                <th>订单编号</th>
+				<th>用户</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<foreach name="model" item="v">
+				<tr>
+					<td>{$v.id}</td>
+					<td>{$v.name}</td>
+                    <td>{$v.code}</td>
+					<td>{$v.username}</td>
+					<td>
+						<if condition="$v.isdone eq 0"><span class="label label-success">酒店未确认</span>
+						<elseif condition="$v.status eq 1" /><span class="label label-warning">酒店已确认</span>
+						</if>
+					</td>
+						<td>
+                            <a href="{:U('Hotelorder/change?id=')}{$v.id}" style="color:green;"><if condition="$v.isdone eq 0">将订单发送给酒店<elseif condition="$v.isdone eq 1"/>取消订单</if></a>
+						</td>
+						</tr>
+			</foreach>
+		</tbody>
+	</table>
+	<div class="clearfix"></div>
+	{$page}
+
+</div>
+<include file="Public/footer" />

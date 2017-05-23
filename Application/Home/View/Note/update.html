@@ -1,0 +1,99 @@
+<include file="Public/header" />
+<div id="subbox">
+<div class="position">当前位置：<a href="#">首页</a> > 发布游记</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--发布游记-->
+<div class="column4">
+<div class="title5"><h1>发布游记</h1></div>
+<div class='layui-div'>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>发布游记</legend>
+</fieldset>     
+<form class="layui-form" method="post" action="{:U('Note/update?id=')}{$note.id}" enctype="multipart/form-data" >
+  <div class="layui-form-item">
+    <label class="layui-form-label">游记标题</label>
+    <div class="layui-input-block">
+      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" value="{$mynote.title}">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+      <label class="layui-form-label">游记封面</label>
+      <div class="layui-input-block">
+          <input type="file" name="pic">
+          <if condition="$mynote[pic] neq ''">
+            <img src="__ROOT__/{$mynote.pic}" height="50px">
+            <else/>
+            无缩略图
+            </if>
+      </div>
+  </div>
+  <div class="layui-form-item" pane="">
+    <label class="layui-form-label">选择区域</label>
+    <div class="layui-input-block">
+      <?php foreach($areas as $v):?>
+      <input type="checkbox" name="areas[]" lay-skin="primary" title="<?php echo $v;?>" value="<?php echo $v;?>"
+      <?php
+                    foreach($areaids as $v1){
+                        if($v==$v1){
+                            echo "checked='checked'";
+                        }
+                    }
+                    ?>
+      >
+      <?php endforeach;?>
+    </div>
+  </div>
+  <div class="layui-form-item" pane="">
+    <label class="layui-form-label">选择景点</label>
+    <div class="layui-input-block">
+      <?php foreach($spots as $v):?>
+      <input type="checkbox" name="spots[]" lay-skin="primary" title="<?php echo $v['name'];?>" value="<?php echo $v['id'];?>"
+      <?php
+                    foreach($spotsids as $v1){
+                        if($v['id']==$v1){
+                            echo "checked='checked'";
+                        }
+                    }
+                    ?>
+      >
+      <?php endforeach;?>
+    </div>
+  </div>
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">内容</label>
+    <div class="layui-input-block">
+      <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor">{$mynote.content}</textarea>
+    </div>
+  </div>
+  <input type="hidden" name="id" value="{$mynote.id}">
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+</div>
+<!--右侧部分-->
+<include file="Note/right" />
+</div>
+
+</div>
+
+</div>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<script>
+layui.use(['form', 'layedit'], function(){
+  var form = layui.form()
+  ,layer = layui.layer
+  ,layedit = layui.layedit;
+  
+  //创建一个编辑器
+  var editIndex = layedit.build('LAY_demo_editor');
+});
+</script>
+<include file="Public/footer" />

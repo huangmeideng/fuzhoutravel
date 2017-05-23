@@ -1,0 +1,49 @@
+<include file="Public:header" />
+<!-- <div class="nybanner" style="background:url(__STATIC__/images/nybanner.jpg) center no-repeat;"></div> -->
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <?php foreach($top as $v):?>
+      <li _src="url(<?php echo $v['pic'];?>)" style="background:#E2025E center 0 no-repeat;"><a target="_blank" href="{:U('post/view?id=')}<?php echo $v['id'];?>"></a></li>
+    <?php endforeach;?>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span> </div>
+  <script type="text/javascript">
+  jQuery(".fullSlide").hover(function() {
+      jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+  },
+  function() {
+      jQuery(this).find(".prev,.next").fadeOut()
+  });
+  jQuery(".fullSlide").slide({
+      titCell: ".hd ul",
+      mainCell: ".bd ul",
+      effect: "fold",
+      autoPlay: true,
+      autoPage: true,
+      trigger: "click",
+      startFun: function(i) {
+          var curLi = jQuery(".fullSlide .bd li").eq(i);
+          if ( !! curLi.attr("_src")) {
+              curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+          }
+      }
+  });
+  </script>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 资讯详情</div>
+<div class="mainbox">
+<div class="titlei"><h1>资讯详情</h1></div>
+<div class="menu"><h2><a class="on">{$post.title}</a></h2></div>
+<div class="content_news">
+	<?php echo htmlspecialchars_decode($post['content'])?>
+</div>
+</div>
+</div>
+<include file="Public:footer"/>

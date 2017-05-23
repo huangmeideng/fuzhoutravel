@@ -1,0 +1,64 @@
+<include file="Public/header" title="编辑旅行社" />
+<div id="page-wrapper">
+    <form method="post" action="{:U('agency/update?id=')}{$category.id}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="agency-name">名称</label>
+            <input type="text" name="name" class="form-control" value="{$agency.name}" id="agency-title" placeholder="输入旅行社名称">
+        </div>
+        <div class="form-group">
+            <label for="agency-cate">分类</label>
+            <select name="cate_id" id="agency-cate" class="form-control">
+                <foreach name="category" item="v">
+                    <option value="{$v.id}" <?php if($play['cate_id'] == $v['id']) {echo 'selected="selected"' ;}?>>{$v.html} {$v.title}</option>
+                </foreach>
+            </select>
+        </div>
+       <div class="form-group">
+            <label for="agency-address">地址</label>
+            <textarea name="address" id='agency-address' class="form-control" >{$agency.address}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="agency-telephone">电话</label>
+            <input type="text" name="telephone" class="form-control" id="agency-telephone" value="{$agency.telephone}" placeholder="输入电话">
+        </div>
+        <div class="form-group">
+            <label for="agency-people">联系人</label>
+            <input type="text" name="people" class="form-control" id="play-people" value="{$agency.people}" placeholder="输入联系人">
+        </div>
+        <div class="form-group">
+            <label for="agency-license">许可证</label>
+            <input type="text" name="license" class="form-control" id="agency-license" value="{$agency.license}" placeholder="输入许可证">
+        </div>
+        <div class="form-group">
+            <label for="agency-pic">图片</label>
+            <input type="file" name="pic" id="agency-pic" class="form-control">
+            <if condition="$agency[pic] neq ''">
+            <img src="__ROOT__/{$agency.pic}" height="50px">
+            <else/>
+            无缩略图
+            </if>
+        </div>
+        <div class="form-group">
+            <label for="agency-content">内容</label>
+            <script id="agency-content" name="content" type="text/plain">{$agency.content|htmlspecialchars_decode}</script>
+        </div>
+        <input type="hidden" name="id" value="{$agency.id}">
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('agency-content',{
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo','bold', 'italic', 'underline','fontborder', 'strikethrough', '|','simpleupload', 'insertimage','attachment','emotion','link','unlink', '|', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','searchreplace', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc'],
+            ['inserttable','insertrow', 'insertcol','mergeright', 'mergedown','deleterow', 'deletecol','splittorows','splittocols', 'splittocells','deletecaption','inserttitle', 'mergecells', 'deletetable','insertparagraphbeforetable', 'paragraph','fontsize','fontfamily']
+        ],
+        initialFrameHeight:500,
+        zIndex:100
+    });
+</script>
+<include file="Public/footer" />

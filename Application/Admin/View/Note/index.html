@@ -1,0 +1,67 @@
+<include file="Public/header" title="游记列表" />
+<div id="page-wrapper">
+
+	<div class="row">
+		<!--<div class="col-md-6">
+			<a href="{:U('strategy/add')}" class="btn btn-success">添加官方攻略</a>
+		</div>-->
+		<div class="col-md-6">
+			<form action="{:U('Note/index')}" method="post">
+				<div class="form-group input-group">
+					<input type="text" class="form-control" name="key" placeholder="输入游记名称、作者或者分类关键词搜索">
+					<span class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                    </span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>标题</th>
+				<th>图片</th>
+				<th>作者</th>
+				<th>时间</th>
+				<th>是否热门</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<foreach name="model" item="v">
+				<tr>
+					<td>{$v.id}</td>
+					<td>{$v.title}</td>
+					<td>
+					<if condition="$v[pic] neq ''">
+					<img src="__ROOT__/{$v.pic}" height="50px" />
+					<else/>
+					无缩略图
+					</if>
+					</td>
+					<td>{$v.username}</td>
+					<td>{$v.time}</td>
+					<td>
+						<if condition="$v.ishot eq 0"><span class="label label-success">普通</span>
+							<elseif condition="$v.ishot eq 1" /><span class="label label-warning">热门</span>
+						</if>
+					</td>
+					<td>
+						<if condition="$v.status eq 0"><span class="label label-success">未审核</span>
+						<elseif condition="$v.status eq 1" /><span class="label label-warning">审核通过</span>
+						</if>
+					</td>
+						<td>
+						<a href="{:U('note/view?id=')}{$v.id}">查看</a> | <a href="{:U('note/ishot?id=')}{$v.id}" style="color:red;" ><if condition="$v.ishot eq 0">设为热门<elseif condition="$v.ishot eq 1" />设为普通</if></a> | <a href="{:U('Note/status?id=')}{$v.id}" style="color:green;"><if condition="$v.status eq 0">审核<elseif condition="$v.status eq 1"/>禁止</if></a>
+						</td>
+						</tr>
+			</foreach>
+		</tbody>
+	</table>
+	<div class="clearfix"></div>
+	{$page}
+
+</div>
+<include file="Public/footer" />

@@ -1,0 +1,42 @@
+.paging { clear: both; }
+.paging a {
+    display: inline-block;
+    padding: 0 10px;
+    min-width: 28px;
+    height: 28px;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #666;
+    text-align: center;
+    line-height: 28px;
+}
+.paging .num:hover,
+.paging .prev:hover,
+.paging .next:hover {
+    text-decoration: none;
+    border: 1px solid #0080f0;
+    color: #0080f0;
+}
+.paging .total {
+    display: inline-block;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+}
+.paging .current {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    text-align: center;
+    line-height: 30px;
+}
+.paging .prev,
+.paging .current {
+    margin-left: 0;
+}
+.paging .rows {
+    margin-left: 5px;
+    color: #666;
+}

@@ -1,0 +1,98 @@
+<include file="Public/header" title="编辑线路" />
+<div id="page-wrapper">
+    <form method="post" action="{:U('route/update?id=')}{$category.id}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="route-name">线路名称</label>
+            <input type="text" name="name" class="form-control" value="{$route.name}" id="route-title" placeholder="输入线路名称">
+        </div>
+        <div class="form-group">
+            <label for="route-cate">分类</label>
+            <select name="cate_id" id="route-cate" class="form-control">
+                <foreach name="category" item="v">
+                    <option value="{$v.id}" <?php if($route['cate_id'] == $v['id']) {echo 'selected="selected"' ;}?>>{$v.html} {$v.title}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="route-type">线路类型</label>
+            <select name="type" id="route-type" class="form-control">
+                <foreach name="type" item="v">
+                    <option value="{$v}" <?php if($route['type'] == $v) {echo 'selected="selected"' ;}?>>{$v}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="route-days">行程天数</label>
+            <select name="days" id="route-days" class="form-control">
+                <foreach name="days" item="v">
+                    <option value="{$v}" <?php if($route['days'] == $v) {echo 'selected="selected"' ;}?>>{$v}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="route-price">线路价格</label>
+            <input type="text" name='price' id="route-price" class="form-control" value="{$route.price}" placeholder="请填写价格">
+        </div>
+        <div class='form-group'>
+            <label>请选择景点</label>
+            <?php foreach($spots as $v):?>
+                <label class='checkbox-inline'>
+                    <input name='spots[]' type="checkbox" value="<?php echo $v['id'];?>" 
+                    <?php
+                    foreach($spotsids as $v1){
+                        if($v['id']==$v1){
+                            echo "checked='checked'";
+                        }
+                    }
+                    ?>
+                    ><?php echo $v['name'];?>
+                </label>
+                <?php endforeach;?>
+        </div>
+        <div class="form-group">
+            <label for="route-descs">线路简介</label><!--
+            <input type="text" name="name" class="form-control" value="{$route.title}" id="route-title" placeholder="输入线路名称"> -->
+            <textarea name="descs" class="form-control" id="route-descs">{$route.descs}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="route-pic">线路图片</label>
+            <input type="file" name="pic" id="route-pic" class="form-control">
+            <if condition="$route[pic] neq ''">
+            <img src="__ROOT__/{$route.pic}" height="50px">
+            <else/>
+            无缩略图
+            </if>
+        </div>
+        <div class="form-group">
+            <label for="route-content">线路内容</label>
+            <script id="route-content" name="content" type="text/plain">{$route.content|htmlspecialchars_decode}</script>
+        </div>
+         <div class="form-group">
+            <label>是否热门</label>
+            <label class="radio-inline">
+              <input type="radio" name="ishot" id="ishot" value="1" <if condition="$route.ishot eq 1">checked="checked"</if> >是
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="ishot" id="ishot" value="0" <if condition="$route.ishot eq 0">checked="checked"</if>>不是
+            </label>
+        </div>
+        <input type="hidden" name="id" value="{$route.id}">
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('route-content',{
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo','bold', 'italic', 'underline','fontborder', 'strikethrough', '|','simpleupload', 'insertimage','attachment','emotion','link','unlink', '|', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','searchreplace', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc'],
+            ['inserttable','insertrow', 'insertcol','mergeright', 'mergedown','deleterow', 'deletecol','splittorows','splittocols', 'splittocells','deletecaption','inserttitle', 'mergecells', 'deletetable','insertparagraphbeforetable', 'paragraph','fontsize','fontfamily']
+        ],
+        initialFrameHeight:500,
+        zIndex:100
+    });
+</script>
+<include file="Public/footer" />

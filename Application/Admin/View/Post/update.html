@@ -1,0 +1,67 @@
+<include file="Public/header" title="编辑资讯" />
+<div id="page-wrapper">
+    <form method="post" action="{:U('post/update?id=')}{$category.id}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="post-title">资讯标题</label>
+            <input type="text" name="title" class="form-control" value="{$post.title}" id="post-title" placeholder="输入资讯标题">
+        </div>
+        <div class="form-group">
+            <label for="post-cate">资讯分类</label>
+            <select name="cate_id" id="post-cate" class="form-control">
+                <foreach name="category" item="v">
+                    <option value="{$v.id}" <?php if($post['cate_id'] == $v['id']) {echo 'selected="selected"' ;}?>>{$v.html} {$v.title}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="post-pic">资讯图片</label>
+            <input type="file" name="pic" id="post-pic" class="form-control">
+            <if condition="$post[pic] neq ''">
+            <img src="__ROOT__/{$post.pic}" height="50px">
+            <else/>
+            无缩略图
+            </if>
+        </div>
+        <div class="form-group">
+            <label for="post-descs">资讯简介</label>
+            <textarea name='descs' id='post-descs' class='form-control'>{$post.descs}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="post-content">资讯内容</label>
+            <script id="post-content" name="content" type="text/plain">{$post.content|htmlspecialchars_decode}</script>
+        </div>
+        <div class="form-group">
+            <label>资讯类型</label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="1" <if condition="$post.type eq 1">checked="checked"</if> >普通
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="2" <if condition="$post.type eq 2">checked="checked"</if>>置顶
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="3" <if condition="$post.type eq 3">checked="checked"</if>>热门
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="4" <if condition="$post.type eq 4">checked="checked"</if>>推荐
+            </label>
+        </div>
+        <input type="hidden" name="id" value="{$post.id}">
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('post-content',{
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo','bold', 'italic', 'underline','fontborder', 'strikethrough', '|','simpleupload', 'insertimage','attachment','emotion','link','unlink', '|', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','searchreplace', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc'],
+            ['inserttable','insertrow', 'insertcol','mergeright', 'mergedown','deleterow', 'deletecol','splittorows','splittocols', 'splittocells','deletecaption','inserttitle', 'mergecells', 'deletetable','insertparagraphbeforetable', 'paragraph','fontsize','fontfamily']
+        ],
+        initialFrameHeight:500,
+        zIndex:100
+    });
+</script>
+<include file="Public/footer" />

@@ -1,0 +1,13 @@
+<include file="Public/header" title="游记详情" />
+<div id="page-wrapper">
+    <div class="jumbotron">
+        <h1>{$data.title}</h1>
+        <p><?php echo htmlspecialchars_decode($data['content']);?></p>
+        <p>
+            <a href="{:U('Note/ishot?id=')}{$data.id}" class="btn btn-xs btn-success"><if condition="$data.ishot eq 0">设为热门<elseif condition="$data.ishot eq 1"/>设为普通</if></a>
+         | 
+         <a href="{:U('Note/status?id=')}{$data.id}" class="btn btn-xs btn-danger"><if condition="$data.status eq 0">审核通过<elseif condition="$data.status eq 1"/>禁止</if></a>
+         </p>
+    </div>
+</div>
+<include file="Public/footer"/>

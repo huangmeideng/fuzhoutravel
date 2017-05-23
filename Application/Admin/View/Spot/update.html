@@ -1,0 +1,107 @@
+<include file="Public/header" title="编辑景点" />
+<div id="page-wrapper">
+    <form method="post" action="{:U('spot/update?id=')}{$category.id}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="spot-title">景点名称</label>
+            <input type="text" name="name" class="form-control" value="{$spot.name}" id="spot-title" placeholder="输入景点名称">
+        </div>
+        <div class="form-group">
+            <label for="spot-cate">分类</label>
+            <select name="cate_id" id="spot-cate" class="form-control">
+                <foreach name="category" item="v">
+                    <option value="{$v.id}" <?php if($spot['cate_id'] == $v['id']) {echo 'selected="selected"' ;}?>>{$v.html} {$v.title}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="spot-area">所属地区</label>
+            <select name="area" id="spot-area" class="form-control">
+                <foreach name="area" item="v">
+                    <option value="{$v}" <?php if($spot['area'] == $v) {echo 'selected="selected"' ;}?>>{$v}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="spot-star">星级</label>
+            <select name="star" id="spot-star" class="form-control">
+                <foreach name="star" item="v">
+                    <option value="{$v}" <?php if($spot['star'] == $v) {echo 'selected="selected"' ;}?>>{$v}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="spot-descs">景点简介</label>
+            <textarea name="descs" class="form-control" id="spot-descs">{$spot.descs}</textarea>
+        </div>
+        <div class="form-group">
+           <label for="spot-ticket">门票信息</label>
+           <textarea id="spot-ticket" name="ticket" class="form-control">{$spot.ticket}</textarea>
+       </div>
+       <div class="form-group">
+          <label for="spot-address">详细地址</label>
+          <textarea id="spot-address" name="address" class="form-control">{$spot.address}</textarea>
+      </div>
+      <div class="form-group">
+         <label for="spot-telephone">联系电话</label>
+         <input type="text" name='telephone' id='spot-telephone' class='form-control' value="{$spot.telephone}">
+     </div>
+     <div class="form-group">
+        <label for="spot-opentime">开放时间</label>
+        <textarea id="spot-opentime" name="opentime" class="form-control">{$spot.opentime}</textarea>
+    </div>
+    <div class="form-group">
+       <label for="spot-playtime">游玩时间</label>
+       <input type="text" name='playtime' id='spot-playtime' class='form-control' value="{$spot.playtime}">
+   </div>
+   <div class="form-group">
+      <label for="spot-goodtime">最佳季节</label>
+     <input type="text" name='goodtime' id='spot-goodtime' class='form-control' value="{$spot.goodtime}">
+  </div>
+        <div class="form-group">
+            <label for="spot-pic">景点图片</label>
+            <input type="file" name="pic" id="spot-pic" class="form-control">
+            <if condition="$spot[pic] neq ''">
+            <img src="__ROOT__/{$spot.pic}" height="50px">
+            <else/>
+            无缩略图
+            </if>
+        </div>
+        <div class="form-group">
+            <label for="spot-content">景点内容</label>
+            <script id="spot-content" name="content" type="text/plain">{$spot.content|htmlspecialchars_decode}</script>
+        </div>
+        <div class="form-group">
+            <label>景点类型</label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="1" <if condition="$spot.type eq 1">checked="checked"</if> >普通
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="2" <if condition="$spot.type eq 2">checked="checked"</if>>置顶
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="3" <if condition="$spot.type eq 3">checked="checked"</if>>热门
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" id="type" value="4" <if condition="$spot.type eq 4">checked="checked"</if>>推荐
+            </label>
+        </div>
+        <input type="hidden" name="id" value="{$spot.id}">
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('spot-content',{
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo','bold', 'italic', 'underline','fontborder', 'strikethrough', '|','simpleupload', 'insertimage','attachment','emotion','link','unlink', '|', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','searchreplace', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc'],
+            ['inserttable','insertrow', 'insertcol','mergeright', 'mergedown','deleterow', 'deletecol','splittorows','splittocols', 'splittocells','deletecaption','inserttitle', 'mergecells', 'deletetable','insertparagraphbeforetable', 'paragraph','fontsize','fontfamily']
+        ],
+        initialFrameHeight:500,
+        zIndex:100
+    });
+</script>
+<include file="Public/footer" />

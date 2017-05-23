@@ -1,0 +1,21 @@
+<div class="menu">
+	<div class="menu-photo">
+		<img src="{$data.avatar}" alt="用户头像" />
+	</div>
+	<dl><dt>我的账户</dt>
+		<dd><a href="{:U('User/message')}">个人信息</a></dd>
+		<dd><a href="{:U('User/collection')}">我的收藏</a></dd>
+		<dd><a href="{:U('User/password')}">密码修改</a></dd>
+	</dl>
+	<dl><dt>游记管理</dt>
+		<dd><a href="{:U('User/mynote')}">我的游记</a></dd>
+		<dd><a href="{:U('Note/add')}">发布游记</a></dd>
+	</dl>
+	<dl><dt>订单管理</dt>
+		<dd><a href="{:U('User/cart')}">线路订单</a></dd>
+		<dd><a href="{:U('User/hotelorder')}">酒店订单</dd>
+	</dl>
+	<dl><dt>我的投诉</dt>
+		<dd><a href="{:U('User/complain')}">查看投诉</a></dd>
+	</dl>
+</div>

@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>福州市旅游网</title>
+<meta name="keywords" content="福州市旅游网" />
+<meta name="description" content="福州市旅游网" />
+<link href="__STATIC__/css/whir_css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/superslide.2.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/column.js"></script>
+<script type="text/javascript" src="__STATIC__/js/min_contentslider.js"></script>
+<script src="__STATIC__/user/js/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/user/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6qLN0I8OGD3xWIUbEyBmlzU7Qo1emgPW"></script>
+<link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+<link href="__STATIC__/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="__STATIC__/user/css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="__STATIC__/user/css/buttons.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="__STATIC__/user/css/font-awesome.min.css"/>
+<link rel="icon" href="__STATIC__/user/img/favicon.ico" mce_href="__STATIC__/user/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="__STATIC__/user/img/favicon.ico">
+<link href="__STATIC__/user/css/bootstrap.min.css" rel="stylesheet">
+<link href="__STATIC__/user/css/dingzhi.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>
+<!--header-->
+<div id="header">
+  <div class="top">
+    <div class="time">
+      <script language='JavaScript'>
+var enabled = 0; today = new Date();
+var day; var date;
+if(today.getDay()==0) day = " 星期日"
+if(today.getDay()==1) day = " 星期一"
+if(today.getDay()==2) day = " 星期二"
+if(today.getDay()==3) day = " 星期三"
+if(today.getDay()==4) day = " 星期四"
+if(today.getDay()==5) day = " 星期五"
+if(today.getDay()==6) day = " 星期六"
+document.fgColor = "000000";
+date = "今天是:" + (today.getFullYear()) + "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + day +"";
+document.write(date);
+// -->
+</script>
+    </div>
+    <div class="weather">
+      <iframe width="450" scrolling="no" height="18" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23555555&icon=3&py=fuzhou&wind=0&num=1"></iframe>
+    </div>
+    <div class="tnav"><if condition="session('?userinfo')"><a href="{:U('User/user')}" style="color:aqua;">欢迎您&nbsp;{:session('userinfo.username')}</a>|<a href="{:U('User/logout')}" style="color:aqua;">退出</a><else/><a href="{:U('User/login')}">登录</a>|<a href="{:U('User/register')}">注册</a></if></div>
+  </div>
+  <div class="nav">
+    <div class="navmenu">
+      <div class="logo"><a href="{:U('Index/index')}"><img src="__STATIC__/images/logo.png" width="190" height="70" /></a></div>
+      <ul>
+        <li><a href="{:U('Page/index')}">福州概况</a></li>
+        <li><a href="{:U('Post/index')}"  class="on">资讯信息</a></li>
+        <li><a href="{:U('Play/index')}">节庆活动</a></li>
+        <li><a href="{:U('Spot/index')}">畅游福州</a></li>
+        <li><a href="{:U('Fands/index')}">美食与特产</a></li>
+        <li><a href="{:U('Route/index')}">主题线路</a></li>
+        <li><a href="{:U('Sandn/index')}">攻略与游记</a></li>
+        <li><a href="{:U('Hotels/index')}">酒店一览</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--详情页-->
+<!--detail start here-->
+	<div class="top">
+		<div class="position">
+			<a href="{:U('Index/index')}">首页</a> > 酒店详情
+		</div>
+		<div class="tour-show">
+			<div class="tour-show-left">
+			<img src='{$hotelview.pic}' alt='no' width="690px" height="440px"/>	
+			</div>
+			<div class="tour-show-right">
+				<h1 style="font-size:40px;">{$hotelview.name}</h1>
+                <input type="hidden" id='product' productid="{$route.id}" cateid='{$route.cate_id}' price='{$route.price}' address='{$hotelview.address}'/>
+				<div class="price-wrap">
+						<span class="price_small_red" style="font-size:large;">{$hotelview.address}</span>
+				</div>
+ 				 <div class="dingzhi-but-wrap">
+					<a href="javascript:;" target="_blank" class="button button-pill button-rounded  button-primary" onclick="buyHotel()">立即预订</a>
+				</div>  
+				</div>
+			</div> 
+		</div> 
+   </div>
+	<div class="detail-wrap">
+		<div class="detail">
+			<div class="detail-left">
+			<div class="ProInfoBox" id="product-detail">
+				<p class="TourInfoHeadBig" style="color:tomato;">酒店详情</p><br>
+				<?php echo htmlspecialchars_decode($hotelview['content']);?>
+			</div>
+			<div class="tour-info" id="journey-ref">
+				<div class="ProInfoBox">
+				<p class="TourInfoHeadBig" style="color:darkblue;">酒店地图</p><br>
+				<div id='map' style="width:710px;height:310px;">
+				</div>
+				</div>
+			</div>			
+			</div>
+			<div class="detail-right">
+				<p>附近景点推荐</p>
+                    <?php foreach($spots as $v):?>
+					<a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>" target="_blank" class="Product">
+	                <i class="LazyImgBox"><img src="<?php echo $v['pic'];?>" width="180px" height="180px"></i>
+	                <span><?php echo $v['name'];?></span>
+					</a>
+                    <?php endforeach;?>
+			</div>
+		</div>
+	</div>
+<div id='buyhotel' style="display:none;">
+<form class="layui-form layui-form-pane" action="">
+	<input type="hidden" id='hotelid' hotelid='{$hotelview.id}'>
+  <div class="layui-form-item">
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">入住日期</label>
+      <div class="layui-input-block">
+        <input type="text" name="indate" id="indate" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+      </div>
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">离开日期</label>
+      <div class="layui-input-block">
+        <input type="text" name="outdate" id="outdate" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+      </div>
+    </div>
+  </div>   
+  <div class="layui-form-item">
+    <label class="layui-form-label">房间类型</label>
+    <div class="layui-input-block">
+      <select name="interest" lay-filter="aihao" id='roomtype'>
+        <option value=""></option>
+        <option value="0">双人间</option>
+        <option value="1" selected="">单人间</option>
+        <option value="2">商务大床房</option>
+        <option value="3">豪华大床房</option>
+        <option value="4">商务套房</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">备注</label>
+    <div class="layui-input-block">
+      <textarea placeholder="请输入内容" class="layui-textarea" id='beizhu'></textarea>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <a class="layui-btn" lay-submit="" lay-filter="demo2" onclick="surebuy()">确认</a>
+  </div>
+</form>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+    var address=$('#product').attr('address');
+    //alert(address);
+	var map = new BMap.Map("map");
+	var point = new BMap.Point(119.370203,26.178018);
+    map.enableScrollWheelZoom(true);   
+	map.centerAndZoom(point,12);
+	// 创建地址解析器实例
+	var myGeo = new BMap.Geocoder();
+	// 将地址解析结果显示在地图上,并调整地图视野
+	myGeo.getPoint(address, function(point){
+		if (point) {
+			map.centerAndZoom(point, 16);
+            var mark=new BMap.Marker(point);
+            map.addOverlay(mark);
+			//map.addOverlay(new BMap.Marker(point));
+		}else{
+			alert("您选择地址没有解析到结果!");
+		}
+	}, "福州市");
+</script>
+<script type="text/javascript">
+	layui.use(['layer','form','laydate'],function(){
+		var layer=layui.layer
+		,form=layui.form()
+		laydate=layui.laydate;
+	});
+	function buyHotel(){
+		layer.open({
+			type:1,
+			title:'预订酒店',
+			area:['500px','450px'],
+			content:$('#buyhotel')
+		});
+	}
+	function surebuy(){
+		var jsondata={
+			'indate':$('#indate').val(),
+			'outdate':$('#outdate').val(),
+			'type':$('#roomtype').val(),
+			'beizhu':$('#beizhu').val(),
+			'hotel_id':$('#hotelid').attr('hotelid')
+		};
+		$.ajax({
+			type:'post',
+			url:"{:U('hotelorder/add')}",
+			data:{getdata:jsondata},
+			dataType:'json',
+			success:function(data){
+				if(data.key==2){
+					layer.msg('请先登录',{icon:2});
+				}else if(data.key==1){
+					layer.msg('预订成功,请等待酒店答复',{icon:1});
+				}else{
+					layer.msg('预订失败',{icon:2})
+				}
+			}
+		});
+	}
+</script>

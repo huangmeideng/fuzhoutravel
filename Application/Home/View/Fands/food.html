@@ -1,0 +1,22 @@
+<include file='Public/header'/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 美食与特产 >美食列表</div>
+<div class="mainbox">
+<div class="titlei"><h1>美食列表</h1></div>
+<?php foreach($list as $v):?>
+<div class="con_news">
+        <dt><img src="<?php echo $v['pic'];?>" width="222" height="155" /></dt>
+        <dd>
+          <h1><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h1>
+          <p><?php echo $v['descs'];?></p>
+          <h5>所属地区：<a href='#'><?php echo $v['area'];?></a></h5>
+          <span><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>" class="morexx"> </a></span>
+        </dd>
+</div>
+<?php endforeach;?>
+<div class="page">
+  {$page}
+</div>
+</div>
+<include file='Public/footer'/>

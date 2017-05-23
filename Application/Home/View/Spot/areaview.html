@@ -1,0 +1,81 @@
+<include file='Public/header'/>
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <foreach name='top' item='v'>
+      <li _src="url(<?php echo $v['pic'];?>)" style="background:#E2025E center 0 no-repeat;"><a target="_blank" href="{:U('spot/view?id=')}<?php echo $v[id];?>"></a></li>
+    </foreach>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span>
+  </div>
+<script type="text/javascript">
+jQuery(".fullSlide").hover(function() {
+    jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function() {
+    jQuery(this).find(".prev,.next").fadeOut()
+});
+jQuery(".fullSlide").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".fullSlide .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > <a href='{:U('spot/index')}'>畅游福州 >{$area}</div>
+<div class="mainbox">
+<div class="title6">
+<h1 id="jdt1"><a href="{:U('spot/areaview?areaid=0')}" <if condition="$_GET.areaid eq 0">class='hover'</if>>鼓楼</a></h1>
+<h1 id="jdt2"><a href="{:U('spot/areaview?areaid=1')}" <if condition="$_GET.areaid eq 1">class='hover'</if>>台江</a></h1>
+<h1 id="jdt3"><a href="{:U('spot/areaview?areaid=2')}" <if condition="$_GET.areaid eq 2">class='hover'</if>>仓山</a></h1>
+<h1 id="jdt4"><a href="{:U('spot/areaview?areaid=3')}" <if condition="$_GET.areaid eq 3">class='hover'</if>>马尾</a></h1>
+<h1 id="jdt5"><a href="{:U('spot/areaview?areaid=4')}" <if condition="$_GET.areaid eq 4">class='hover'</if>>晋安</a></h1>
+<h1 id="jdt6"><a href="{:U('spot/areaview?areaid=5')}" <if condition="$_GET.areaid eq 5">class='hover'</if>>闽侯</a></h1>
+<h1 id="jdt7"><a href="{:U('spot/areaview?areaid=6')}" <if condition="$_GET.areaid eq 6">class='hover'</if>>连江</a></h1>
+<h1 id="jdt8"><a href="{:U('spot/areaview?areaid=7')}" <if condition="$_GET.areaid eq 7">class='hover'</if>>罗源</a></h1>
+</div>
+<div class="title6">
+<h1 id="jdt4"><a href="{:U('spot/areaview?areaid=8')}" <if condition="$_GET.areaid eq 8">class='hover'</if>>闽清</a></h1>
+<h1 id="jdt5"><a href="{:U('spot/areaview?areaid=9')}" <if condition="$_GET.areaid eq 9">class='hover'</if>>永泰</a></h1>
+<h1 id="jdt6"><a href="{:U('spot/areaview?areaid=10')}" <if condition="$_GET.areaid eq 10">class='hover'</if>>福清</a></h1>
+<h1 id="jdt7"><a href="{:U('spot/areaview?areaid=11')}" <if condition="$_GET.areaid eq 11">class='hover'</if>>长乐</a></h1>
+<h1 id="jdt8"><a href="{:U('spot/areaview?areaid=12')}" <if condition="$_GET.areaid eq 12">class='hover'</if>>平潭</a></h1>
+</div>
+<div>
+<ul class="jdpic">
+<?php foreach($data as $k=>$v):?>
+  <if condition='($k+1) eq 1'>
+    <li class="jd1"><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" /><span><h2><?php echo $v['name'];?></h2><p><?php echo $v['descs'];?></p></span></a></li>
+    <elseif condition='($k+1) ELT 8'/>
+<li class="jd{$k+1}"><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" /><span><?php echo $v['name'];?></span></a></li>
+</if>
+<?php endforeach;?>
+</ul>
+<!-- <ul class="clearfix">
+  <foreach name='data' item='v'>
+					<li class="wow bounceIn">
+						<a href="court_travel_show.html"><img src="<?php echo $v['pic'];?>" alt="" class="vcenter" /><i></i></a>
+						<a href="court_travel_show.html"><?php echo $v['name'];?></a>
+					</li>
+        </foreach>
+				</ul> -->
+<!-- <div class="more5"><a href="#">查看更多</a></div> -->
+</div>
+</div>
+</div>
+<include file='Public/footer'/>

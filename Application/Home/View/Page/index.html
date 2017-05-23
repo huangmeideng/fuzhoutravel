@@ -1,0 +1,86 @@
+<include file="Public:header"/>
+<div class="nybanner" style="background:url({$page.pic}) center no-repeat;"></div>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('Index/index')}">首页</a> > 福州概况</div>
+<div class="mainbox">
+<div class="titlei12"><h1>{$page.title}</h1></div>
+<div class='menu'>
+<ul>
+  <li><h2><a href="#" class='on'>福州简介</a></h2></li>
+  <li><h2><a href="#">福州地图</a></h2></li>
+  <!-- <li><h2><a href="#">福州旅游概况</a></h2></li> -->
+</ul>
+</div>
+<div class='box'>
+  <div class='content_news'><?php echo htmlspecialchars_decode($page['content']) ?></div>
+  <div style="display:none" class='content_news'>
+  <style type="text/css">
+      html,body{margin:0;padding:0;}
+      .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+      .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+  </style>
+  </head>
+
+  <body>
+    <!--百度地图容器-->
+    <div style="width:1080px;height:550px;border:#ccc solid 1px;" id="dituContent"></div>
+  </body>
+  <script type="text/javascript">
+      //创建和初始化地图函数：
+      function initMap(){
+          createMap();//创建地图
+          setMapEvent();//设置地图事件
+          addMapControl();//向地图添加控件
+      }
+
+      //创建地图函数：
+      function createMap(){
+          var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+          var point = new BMap.Point(119.302938,26.080447);//定义一个中心点坐标
+          map.centerAndZoom(point,12);//设定地图的中心点和坐标并将地图显示在地图容器中
+          window.map = map;//将map变量存储在全局
+      }
+
+      //地图事件设置函数：
+      function setMapEvent(){
+          map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+          map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+          map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+          map.enableKeyboard();//启用键盘上下左右键移动地图
+      }
+
+      //地图控件添加函数：
+      function addMapControl(){
+          //向地图中添加缩放控件
+    var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+    map.addControl(ctrl_nav);
+          //向地图中添加缩略图控件
+    var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+    map.addControl(ctrl_ove);
+          //向地图中添加比例尺控件
+    var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+    map.addControl(ctrl_sca);
+      }
+
+
+      initMap();//创建和初始化地图
+  </script>
+  </div>
+  <!-- <div style="display:none" class='content_news'></div> -->
+</div>
+</div>
+<script type="text/javascript" >
+    $(function(){
+        var $div_li_h2_a =$("div.menu ul li h2 a");
+        $div_li_h2_a.click(function(){
+            $(this).addClass("on")            //当前<li>元素高亮
+                   .siblings().removeClass("on");  //去掉其它同辈<li>元素的高亮
+            var index =  $div_li_h2_a.index(this);  // 获取当前点击的<li>元素 在 全部li元素中的索引。
+            $("div.box > div")       //选取子节点。不选取子节点的话，会引起错误。如果里面还有div
+                    .eq(index).show()   //显示 <li>元素对应的<div>元素
+                    .siblings().hide(); //隐藏其它几个同辈的<div>元素
+        })
+    })
+</script>
+<include file="Public:footer"/>

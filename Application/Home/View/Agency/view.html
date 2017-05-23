@@ -1,0 +1,58 @@
+<include file="Public/header"/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 旅行社详情</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--旅游企业-->
+<div class="column4">
+<div class="title5"><h1>旅行社详情</h1></div>
+<div class='detail'>
+    <div class='top' style="padding-bottom: 35px;zoom: 1;">
+        <div class='thumb' style="overflow: hidden;width: 210px;height: 140px;text-align: center;float: left;background: #ddd;">
+            <img src='{$agency.pic}' alt='无图片' style="width:210px;height:140px;">
+        </div>
+        <div class='main' style="width: 635px;">
+            <h2 style="line-height: 26px;font-size: 20px;padding: 0 6px 5px 0;margin-bottom: 6px;border-bottom: 1px dashed #ddd;">
+                {$agency.name}
+            </h2>
+            <div class='content' style="line-height: 32px;">
+                <em style="color: #666;">联系人:</em>{$agency.people}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <em style="color:#666;">经营许可证：</em>{$agency.license}<br>
+                <em style="color:#666;">地址：</em>{$agency.address}<br>
+                <em style="color:#666;">联系电话：</em><span style="font-size: 24px;color:#f60;">{$agency.telephone}</span>
+            </div>
+        </div>
+    </div>
+    <div class='agencycontent' style="margin:100px 0 0 0;">
+        <div class='agencytitle'>
+            <img src="__STATIC__/images/agencytitle.png">
+        </div>
+        <div class='agencycontent'>
+            {$agency.content|htmlspecialchars_decode}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--景点推荐-->
+<div class="column5">
+<div class="title5"><a href="{:U('Spot/index')}">更多></a><h1>景点推荐</h1></div>
+<?php foreach($hotspot as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h2><p><?php echo mb_substr($v['descs'],0,20).'...';?></p>
+</div>
+</div>
+<?php endforeach;?>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<include file="Public/footer"/>

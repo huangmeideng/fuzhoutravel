@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <!doctype html> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- <html lang="zh"> -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>福州市旅游网</title>
+<meta name="keywords" content="福州市旅游网" />
+<meta name="description" content="福州市旅游网" />
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/superslide.2.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/column.js"></script>
+<script type="text/javascript" src="__STATIC__/js/min_contentslider.js"></script>
+<script src="__STATIC__/user/js/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/user/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<link href="__STATIC__/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+<link href="__STATIC__/user/css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="__STATIC__/user/css/buttons.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="__STATIC__/user/css/font-awesome.min.css"/>
+<link rel="icon" href="__STATIC__/user/img/favicon.ico" mce_href="__STATIC__/user/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="__STATIC__/user/img/favicon.ico">
+<link href="__STATIC__/user/css/bootstrap.min.css" rel="stylesheet">
+<link href="__STATIC__/user/css/whir_css.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--header-->
+<div id="header">
+  <div class="top">
+    <div class="time">
+      <script language='JavaScript'>
+var enabled = 0; today = new Date();
+var day; var date;
+if(today.getDay()==0) day = " 星期日"
+if(today.getDay()==1) day = " 星期一"
+if(today.getDay()==2) day = " 星期二"
+if(today.getDay()==3) day = " 星期三"
+if(today.getDay()==4) day = " 星期四"
+if(today.getDay()==5) day = " 星期五"
+if(today.getDay()==6) day = " 星期六"
+document.fgColor = "000000";
+date = "今天是:" + (today.getFullYear()) + "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + day +"";
+document.write(date);
+</script>
+    </div>
+    <div class="weather">
+      <iframe width="450" scrolling="no" height="18" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23555555&icon=3&py=fuzhou&wind=0&num=1"></iframe>
+    </div>
+    <div class="tnav"><if condition="session('?userinfo')"><a href="{:U('User/user')}" style="color:aqua;">欢迎您&nbsp;{:session('userinfo.username')}</a>|<a href="{:U('User/logout')}" style="color:aqua;">退出</a><else/><a href="{:U('User/login')}">登录</a>|<a href="{:U('User/register')}">注册</a></if></div>
+  </div>
+  <div class="nav">
+    <div class="navmenu">
+      <div class="logo"><a href="{:U('Index/index')}"><img src="__STATIC__/images/logo.png" width="190" height="70" /></a></div>
+      <ul>
+        <li><a href="{:U('Page/index')}">福州概况</a></li>
+        <li><a href="{:U('Post/index')}">资讯信息</a></li>
+        <li><a href="{:U('Play/index')}">节庆活动</a></li>
+        <li><a href="{:U('Spot/index')}">畅游福州</a></li>
+        <li><a href="{:U('Fands/index')}">美食与特产</a></li>
+        <li><a href="{:U('Route/index')}">主题线路</a></li>
+        <li><a href="{:U('Sandn/index')}">旅游攻略</a></li>
+        <li><a href="{:U('Hotels/index')}">酒店一览</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--主体-->
+<div class="usercenter">
+<include file="User/menu" />
+	<div class="content">
+		<div class="title">我的收藏</div>
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">收藏的游记</li>
+                <li>收藏的攻略</li>
+                <li>收藏的景点</li>
+                <li>收藏的美食</li>
+                <li>收藏的特产</li>
+            </ul>
+        <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+          <?php foreach($note as $v):?>
+          <div class='notebox' style="width:1010px;height:200px;" id="<?php echo $v['id'];?>">
+            <div class='noteimg' style="float:left;margin:0 30px 0 0;">
+              <a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="240px" height="165px" /></a>
+            </div>
+            <div class='notetext' style="float:left;width:550px;">
+              <a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>" style="display:inline-block;margin:0 0 20px 0;">
+                <span style="color:#f60;font-size:25px;">【游记】</span><span style="font-size:20px;"><?php echo $v['title'];?></span>
+              </a>
+              <ul>
+                <li style="display:inline-block;margin:0 0 20px 0;"><span style="font-size:20px;">作者：</span><span style="font-size:20px;"><?php echo $v['username'];?></span></li>
+                <li><span style="font-size:20px;">发布时间:</span><span style="font-size:20px;"><?php echo $v['time'];?></span></li>
+              </ul>
+            </div>
+            <div class='notedo'>
+              <a href="{:U('Sandn/noteview?id=')}<?php echo $v['id'];?>" class='layui-btn  layui-btn-radius layui-btn-normal' style="display:inline-block;margin:10px 0 50px 0;"><i class="layui-icon">&#xe652;</i></a><br>
+              <a href='javascript:;' class="layui-btn layui-btn-radius layui-btn-danger" onclick="reducenote('{$v.id}','{$v.cate_id}')"><i class='layui-icon'>&#xe640;</i></a>
+            </div>
+          </div>
+          <hr>
+          <?php endforeach;?>
+        </div>
+         <div class="layui-tab-item">
+          <?php foreach($strategy as $v):?>
+          <div class='notebox' style="width:1010px;height:200px;" id="<?php echo $v['id'];?>">
+            <div class='noteimg' style="float:left;margin:0 30px 0 0;">
+              <a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="240px" height="165px" /></a>
+            </div>
+            <div class='notetext' style="float:left;width:550px;">
+              <a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>" style="display:inline-block;margin:0 0 20px 0;">
+                <span style="color:#f60;font-size:25px;">【官方攻略】</span><span style="font-size:20px;"><?php echo $v['title'];?></span>
+              </a>
+              <ul>
+                <li style="display:inline-block;margin:0 0 20px 0;"><span style="font-size:20px;">作者：</span><span style="font-size:20px;">福州旅游资讯网</span></li>
+                <li><span style="font-size:20px;">发布时间:</span><span style="font-size:20px;"><?php echo $v['time'];?></span></li>
+              </ul>
+            </div>
+            <div class='notedo'>
+              <a href="{:U('Sandn/strategyview?id=')}<?php echo $v['id'];?>" class='layui-btn  layui-btn-radius layui-btn-normal' style="display:inline-block;margin:10px 0 50px 0;"><i class="layui-icon">&#xe652;</i></a><br>
+              <a href='javascript:;' class="layui-btn layui-btn-radius layui-btn-danger" onclick="reducestrategy('{$v.id}','{$v.cate_id}')"><i class='layui-icon'>&#xe640;</i></a>
+            </div>
+          </div>
+          <hr>
+          <?php endforeach;?>
+        </div>
+        <div class="layui-tab-item">
+          <?php foreach($spot as $v):?>
+          <div class='notebox' style="width:1010px;height:200px;" id="<?php echo $v['id'];?>">
+            <div class='noteimg' style="float:left;margin:0 30px 0 0;">
+              <a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="240px" height="165px" /></a>
+            </div>
+            <div class='notetext' style="float:left;width:550px;">
+              <a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>" style="display:inline-block;margin:0 0 20px 0;">
+                <span style="color:#f60;font-size:25px;">【景点】</span><span style="font-size:20px;"><?php echo $v['name'];?></span>
+              </a>
+              <ul>
+                <li style="display:inline-block;margin:0 0 20px 0;"><span style="font-size:20px;">电话：</span><span style="font-size:20px;"><?php echo $v['telephone'];?></span></li>
+                <li><span style="font-size:20px;">地址:</span><span style="font-size:20px;"><?php echo $v['address'];?></span></li>
+              </ul>
+            </div>
+            <div class='notedo'>
+              <a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>" class='layui-btn  layui-btn-radius layui-btn-normal' style="display:inline-block;margin:10px 0 50px 0;"><i class="layui-icon">&#xe652;</i></a><br>
+              <a href='javascript:;' class="layui-btn layui-btn-radius layui-btn-danger" onclick="reducespot('{$v.id}','{$v.cate_id}')"><i class='layui-icon'>&#xe640;</i></a>
+            </div>
+          </div>
+          <hr>
+          <?php endforeach;?>
+        </div>
+        <div class="layui-tab-item">
+          <?php foreach($food as $v):?>
+          <div class='notebox' style="width:1010px;height:200px;" id="<?php echo $v['id'];?>">
+            <div class='noteimg' style="float:left;margin:0 30px 0 0;">
+              <a href="{:U('Fands/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="240px" height="165px" /></a>
+            </div>
+            <div class='notetext' style="float:left;width:550px;">
+              <a href="{:U('Fands/view?id=')}<?php echo $v['id'];?>" style="display:inline-block;margin:0 0 20px 0;">
+                <span style="color:#f60;font-size:25px;">【美食】</span><span style="font-size:20px;"><?php echo $v['name'];?></span>
+              </a>
+              <ul>
+                <li style="display:inline-block;margin:0 0 20px 0;"><span style="font-size:20px;">所属地区：</span><span style="font-size:20px;"><?php echo $v['area'];?></span></li>
+                <li><span style="font-size:20px;">简介:</span><span style="font-size:20px;"><?php echo mb_substr($v['descs'],0,20).'...';?></span></li>
+              </ul>
+            </div>
+            <div class='notedo'>
+              <a href="{:U('Fands/view?id=')}<?php echo $v['id'];?>" class='layui-btn  layui-btn-radius layui-btn-normal' style="display:inline-block;margin:10px 0 50px 0;"><i class="layui-icon">&#xe652;</i></a><br>
+              <a href='javascript:;' class="layui-btn layui-btn-radius layui-btn-danger" onclick="reducefood('{$v.id}','{$v.cate_id}')"><i class='layui-icon'>&#xe640;</i></a>
+            </div>
+          </div>
+          <hr>
+          <?php endforeach;?>
+        </div>
+        <div class="layui-tab-item">
+          <?php foreach($techang as $v):?>
+          <div class='notebox' style="width:1010px;height:200px;" id="<?php echo $v['id'];?>">
+            <div class='noteimg' style="float:left;margin:0 30px 0 0;">
+              <a href="{:U('Fands/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="240px" height="165px" /></a>
+            </div>
+            <div class='notetext' style="float:left;width:550px;">
+              <a href="{:U('Fands/view?id=')}<?php echo $v['id'];?>" style="display:inline-block;margin:0 0 20px 0;">
+                <span style="color:#f60;font-size:25px;">【美食】</span><span style="font-size:20px;"><?php echo $v['name'];?></span>
+              </a>
+              <ul>
+                <li style="display:inline-block;margin:0 0 20px 0;"><span style="font-size:20px;">所属地区：</span><span style="font-size:20px;"><?php echo $v['area'];?></span></li>
+                <li><span style="font-size:20px;">简介:</span><span style="font-size:20px;"><?php echo mb_substr($v['descs'],0,20).'...';?></span></li>
+              </ul>
+            </div>
+            <div class='notedo'>
+              <a href="{:U('Fands/view?id=')}<?php echo $v['id'];?>" class='layui-btn  layui-btn-radius layui-btn-normal' style="display:inline-block;margin:10px 0 50px 0;"><i class="layui-icon">&#xe652;</i></a><br>
+              <a href='javascript:;' class="layui-btn layui-btn-radius layui-btn-danger" onclick="reducetechang('{$v.id}','{$v.cate_id}')"><i class='layui-icon'>&#xe640;</i></a>
+            </div>
+          </div>
+          <hr>
+          <?php endforeach;?>
+        </div>
+        </div>
+        </div> 
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    layui.use(['layer','element'],function(){
+        var element=layui.element()
+        ,layer=layui.layer;
+    });
+    function reducenote(id,cate_id){
+      $.ajax({
+        type:'get',
+        url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+        success:function(data){
+          if(data.key==1){
+            layer.msg('删除收藏成功',{icon:1});
+            $("#"+id).remove();
+          }else{
+            layer.msg('删除收藏失败',{icon:2});
+          }
+        }
+      });
+    }
+     function reducestrategy(id,cate_id){
+      $.ajax({
+        type:'get',
+        url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+        success:function(data){
+          if(data.key==1){
+            layer.msg('删除收藏成功',{icon:1});
+            $("#"+id).remove();
+          }else{
+            layer.msg('删除收藏失败',{icon:2});
+          }
+        }
+      });
+    }
+     function reducespot(id,cate_id){
+      $.ajax({
+        type:'get',
+        url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+        success:function(data){
+          if(data.key==1){
+            layer.msg('删除收藏成功',{icon:1});
+            $("#"+id).remove();
+          }else{
+            layer.msg('删除收藏失败',{icon:2});
+          }
+        }
+      });
+    }
+     function reducefood(id,cate_id){
+      $.ajax({
+        type:'get',
+        url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+        success:function(data){
+          if(data.key==1){
+            layer.msg('删除收藏成功',{icon:1});
+            $("#"+id).remove();
+          }else{
+            layer.msg('删除收藏失败',{icon:2});
+          }
+        }
+      });
+    }
+     function reducetechang(id,cate_id){
+      $.ajax({
+        type:'get',
+        url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+        success:function(data){
+          if(data.key==1){
+            layer.msg('删除收藏成功',{icon:1});
+            $("#"+id).remove();
+          }else{
+            layer.msg('删除收藏失败',{icon:2});
+          }
+        }
+      });
+    }
+</script>

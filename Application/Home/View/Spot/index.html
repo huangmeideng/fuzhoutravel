@@ -1,0 +1,73 @@
+<include file='Public/header'/>
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <foreach name='top' item='v'>
+      <li _src="url(<?php echo $v['pic'];?>)" style="background:#E2025E center 0 no-repeat;"><a target="_blank" href="{:U('spot/view?id=')}<?php echo $v['id'];?>"></a></li>
+    </foreach>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span>
+  </div>
+<script type="text/javascript">
+jQuery(".fullSlide").hover(function() {
+    jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function() {
+    jQuery(this).find(".prev,.next").fadeOut()
+});
+jQuery(".fullSlide").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".fullSlide .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > <a href='{:U('spot/index')}'>畅游福州</div>
+<div class="mainbox">
+<div class="title6">
+<h1 id="jdt1"><a href="{:U('spot/areaview?areaid=0')}">鼓楼</a></h1>
+<h1 id="jdt2"><a href="{:U('spot/areaview?areaid=1')}">台江</a></h1>
+<h1 id="jdt3"><a href="{:U('spot/areaview?areaid=2')}">仓山</a></h1>
+<h1 id="jdt4"><a href="{:U('spot/areaview?areaid=3')}">马尾</a></h1>
+<h1 id="jdt5"><a href="{:U('spot/areaview?areaid=4')}">晋安</a></h1>
+<h1 id="jdt6"><a href="{:U('spot/areaview?areaid=5')}">闽侯</a></h1>
+<h1 id="jdt7"><a href="{:U('spot/areaview?areaid=6')}">连江</a></h1>
+<h1 id="jdt8"><a href="{:U('spot/areaview?areaid=7')}">罗源</a></h1>
+</div>
+<div class="title6">
+<h1 id="jdt1"><a href="{:U('spot/areaview?areaid=8')}">闽清</a></h1>
+<h1 id="jdt2"><a href="{:U('spot/areaview?areaid=9')}">永泰</a></h1>
+<h1 id="jdt3"><a href="{:U('spot/areaview?areaid=10')}">福清</a></h1>
+<h1 id="jdt4"><a href="{:U('spot/areaview?areaid=11')}">长乐</a></h1>
+<h1 id="jdt5"><a href="{:U('spot/areaview?areaid=12')}">平潭</a></h1>
+</div>
+<div>
+<ul class="jdpic">
+<?php foreach($data as $k=>$v):?>
+  <if condition='($k+1) eq 1'>
+    <li class="jd1"><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" /><span><h2><?php echo $v['name'];?></h2><p><?php echo $v['descs'];?></p></span></a></li>
+    <elseif condition='($k+1) ELT 8'/>
+<li class="jd{$k+1}"><a href="{:U('spot/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" /><span><?php echo $v['name'];?></span></a></li>
+</if>
+<?php endforeach;?>
+</ul>
+<div class="more5"><a href="#">查看更多</a></div>
+</div>
+</div>
+</div>
+<include file='Public/footer'/>

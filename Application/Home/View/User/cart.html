@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <!doctype html> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- <html lang="zh"> -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>福州市旅游网</title>
+<meta name="keywords" content="福州市旅游网" />
+<meta name="description" content="福州市旅游网" />
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/superslide.2.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/column.js"></script>
+<script type="text/javascript" src="__STATIC__/js/min_contentslider.js"></script>
+<script src="__STATIC__/user/js/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/user/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+<link rel="stylesheet" href="__STATIC__/css/sb-admin.css">
+<link href="__STATIC__/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="__STATIC__/user/css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="__STATIC__/user/css/buttons.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="__STATIC__/user/css/font-awesome.min.css"/>
+<link rel="icon" href="__STATIC__/user/img/favicon.ico" mce_href="__STATIC__/user/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="__STATIC__/user/img/favicon.ico">
+<link href="__STATIC__/user/css/bootstrap.min.css" rel="stylesheet">
+<link href="__STATIC__/user/css/whir_css.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--header-->
+<div id="header">
+  <div class="top">
+    <div class="time">
+      <script language='JavaScript'>
+var enabled = 0; today = new Date();
+var day; var date;
+if(today.getDay()==0) day = " 星期日"
+if(today.getDay()==1) day = " 星期一"
+if(today.getDay()==2) day = " 星期二"
+if(today.getDay()==3) day = " 星期三"
+if(today.getDay()==4) day = " 星期四"
+if(today.getDay()==5) day = " 星期五"
+if(today.getDay()==6) day = " 星期六"
+document.fgColor = "000000";
+date = "今天是:" + (today.getFullYear()) + "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + day +"";
+document.write(date);
+</script>
+    </div>
+    <div class="weather">
+      <iframe width="450" scrolling="no" height="18" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23555555&icon=3&py=fuzhou&wind=0&num=1"></iframe>
+    </div>
+    <div class="tnav"><if condition="session('?userinfo')"><a href="{:U('User/user')}" style="color:aqua;">欢迎您&nbsp;{:session('userinfo.username')}</a>|<a href="{:U('User/logout')}" style="color:aqua;">退出</a><else/><a href="{:U('User/login')}">登录</a>|<a href="{:U('User/register')}">注册</a></if></div>
+  </div>
+  <div class="nav">
+    <div class="navmenu">
+      <div class="logo"><a href="{:U('Index/index')}"><img src="__STATIC__/images/logo.png" width="190" height="70" /></a></div>
+      <ul>
+        <li><a href="{:U('Page/index')}">福州概况</a></li>
+        <li><a href="{:U('Post/index')}">资讯信息</a></li>
+        <li><a href="{:U('Play/index')}">节庆活动</a></li>
+        <li><a href="{:U('Spot/index')}">畅游福州</a></li>
+        <li><a href="{:U('Fands/index')}">美食与特产</a></li>
+         <li><a href="{:U('Route/index')}">主题线路</a></li>
+        <li><a href="{:U('Sandn/index')}">旅游攻略</a></li>
+        <li><a href="{:U('Hotels/index')}">酒店一览</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--主体-->
+<div class="usercenter">
+	<include file="User/menu" />
+	<div class="content">
+        <div class="title">线路订单</div>
+		<table class="table table-hover table-striped" style="font-size:20px;">
+            <thead>
+                <tr>
+                    <th>线路名称</th>
+                    <th>订单编号</th>
+                    <th>总价</th>
+                    <th>交易时间</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+               <foreach name='cart' item='v'>
+                <tr>
+                    <td>{$v.name}</td>
+                    <td>{$v.code}</td>
+                    <td>￥{$v.totalprice}</td>
+                    <td>{$v.time}</td>
+                    <td>
+                        <if condition="$v.status eq 0">
+                            客服未确认
+                            <elseif condition="$v.status eq 1"/>
+                                客服已确认
+                        </if>
+                    </td>
+                </tr>
+               </foreach>
+            </tbody>
+        </table>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+       layui.use('layer', function(){
+        var layer = layui.layer;
+        //layer.msg('hello');
+        });  
+</script>

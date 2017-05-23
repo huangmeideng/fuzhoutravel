@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <!doctype html> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="__STATIC__/filter/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__STATIC__/css/whir_css.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/superslide.2.1.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/column.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/min_contentslider.js"></script>
+     <script src="__STATIC__/filter/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__STATIC__/filter/js/bootstrap.min.js"></script>
+    <script>
+     $(function(){
+       <?php
+          if($_GET){
+            echo 'var obj='.json_encode($_GET).';';
+          }
+       ?>
+      if(typeof(obj)!='undefined'){
+          for(k in obj){
+            $("#"+k).val(obj[k]);
+            $("a["+k+"="+obj[k]+"]").parent().addClass("in").siblings().removeClass("in");
+          }
+      }
+     })
+    </script>
+    <script>
+        function Filter(a,b){
+          var $ = function(e){return document.getElementById(e);}
+          var ipts = $('filterForm').getElementsByTagName('input'),result=[];
+          for(var i=0,l=ipts.length;i<l;i++){
+          if(ipts[i].getAttribute('to')=='filter'){
+          result.push(ipts[i]);
+          }
+          }
+          if($(a)){
+          $(a).value = b;
+          for(var j=0,len=result.length;j<len;j++){
+
+            if(result[j].value=='' || result[j].value=='0'){
+            result[j].parentNode.removeChild(result[j]);
+            }
+          }
+            document.forms['filterForm'].submit();
+          }
+          return false;
+          }
+    </script>
+    <style>
+     .mtp30{margin-top: 80px;}
+     .warning{background: #FCF8E3;}
+     .img30{width: 30px;height:30px;}
+     .img20{width: 20px;height:20px;}
+     .listsearch{border:1px solid #FFDCAF;border-top: 2px solid #FF9100;height:200px;}
+     .border-color{border-color: #FFDCAF;}
+     .top-color{border-top: 2px solid #FF9100}
+     .red{color: #FF335D;font-family: '微软雅黑';font-weight: 24px;}
+     .searchbody{line-height: 35px;margin-left: 15px;}
+     .row a{color: #444;text-decoration: none;}
+     .row a:hover{color: #FA8D00}
+     .row li{padding-right: 5px;padding-left: 10px;}
+     .in,.in a{background: #FA8D00;color: #fff;border-radius: 4px;}
+     .in a:hover{color: #fff}
+    </style>
+  </head>
+
+  <body>
+  <div id="header">
+    <div class="top">
+      <div class="time">
+        <script language='JavaScript'>
+  <!--
+  var enabled = 0; today = new Date();
+  var day; var date;
+  if(today.getDay()==0) day = " 星期日"
+  if(today.getDay()==1) day = " 星期一"
+  if(today.getDay()==2) day = " 星期二"
+  if(today.getDay()==3) day = " 星期三"
+  if(today.getDay()==4) day = " 星期四"
+  if(today.getDay()==5) day = " 星期五"
+  if(today.getDay()==6) day = " 星期六"
+  document.fgColor = "000000";
+  date = "今天是:" + (today.getFullYear()) + "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + day +"";
+  document.write(date);
+  // -->
+  </script>
+      </div>
+      <div class="weather">
+        <iframe width="450" scrolling="no" height="18" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23555555&icon=3&py=fuzhou&wind=0&num=1"></iframe>
+      </div>
+      <div class="tnav"><a href="#">登录</a>|<a href="#">注册</a></div>
+    </div>
+    <div class="nav">
+      <div class="navmenu">
+        <div class="logo"><a href="{:U('Index/index')}"><img src="__STATIC__/images/logo.jpg" width="190" height="70" /></a></div>
+        <ul>
+          <li><a href="{:U('Page/index')}">福州概况</a></li>
+          <li><a href="{:U('Post/index')}"  class="on">资讯信息</a></li>
+          <li><a href="人文凤阳.html">人文福州</a></li>
+          <li><a href="畅游服务.html">畅游福州</a></li>
+          <li><a href="{:U('Fands/index')}">美食与特产</a></li>
+          <li><a href="主题线路.html">主题线路</a></li>
+          <li><a href="旅游攻略.html">旅游攻略</a></li>
+          <li><a href="出行服务.html">出行服务</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="container mtp30">
+   <form id="filterForm" name="form1" method="get" action="filter.html">
+      <input id="pid" type="hidden" value="" name="pid" to="filter">
+      <input id="theme" type="hidden" value="" name="theme" to="filter">
+      <input id="price" type="hidden" value="" name="price" to="filter">
+      <input id="day" type="hidden" value="" name="day" to="filter">
+      <input id="type" type="hidden" value="" name="type" to="filter">
+   <ul class="list-group">
+     <li class="list-group-item border-color top-color">
+     <div class="row">
+     <div class="col-md-3">
+       <h4 class='red'><span class="glyphicon glyphicon-map-marker  text-danger"></span> 目的地</h4>
+     </div>
+     <div class="col-md-9">
+        <ul class="nav  nav-pills nav-justified pull-left">
+           <div class="row">
+            <li class='col-xs-4 col-md-1 in'><a pid="0" href="javascript:Filter('pid','0');">不限</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="1" href="javascript:Filter('pid','1');">广州</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="2" href="javascript:Filter('pid','2');">深圳</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="3" href="javascript:Filter('pid','3');">上海</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="4" href="javascript:Filter('pid','4');">武汉</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="5" href="javascript:Filter('pid','5');">北京</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="6" href="javascript:Filter('pid','6');">成都</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="7" href="javascript:Filter('pid','7');">重庆</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="8" href="javascript:Filter('pid','8');">长沙</a></li>
+            <li class='col-xs-4 col-md-1'><a pid="9" href="javascript:Filter('pid','9');">厦门</a></li>
+            </div>
+
+          </ul>
+     </div>
+     </div>
+     </li>
+     <li class="list-group-item border-color">
+       <div class="row">
+     <div class="col-md-3">
+       <h4 class='red'><span class="glyphicon glyphicon-picture  text-primary"></span> 主题</h4>
+     </div>
+     <div class="col-md-9">
+        <ul class="nav  nav-pills nav-justified pull-left">
+           <div class="row">
+            <li class='col-xs-4 col-md-1 in'><a href="javascript:Filter('theme','0');">不限</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='1' href="javascript:Filter('theme','1');">花样温泉</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='2' href="javascript:Filter('theme','2');">滑雪溜冰</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='3' href="javascript:Filter('theme','3');">探险极限</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='4' href="javascript:Filter('theme','4');">登山踏青</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='5' href="javascript:Filter('theme','5');">摩天轮</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='6' href="javascript:Filter('theme','6');">迪士尼</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='7' href="javascript:Filter('theme','7');">海景沙滩</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='8' href="javascript:Filter('theme','8');">瀑布清泉</a></li>
+            <li class='col-xs-4 col-md-1'><a theme='9' href="javascript:Filter('theme','9');">水上运动</a></li>
+            </div>
+
+          </ul>
+     </div>
+
+     </div>
+     </li>
+   </ul>
+   </form>
+</div>
+<!--底部-->
+<div id="footer">
+<div class="links">
+    <!--下面是向左滚动代码-->
+    <div id="colee_left" style="overflow:hidden;width:1200px; padding:0px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td id="colee_left1" valign="top"><table cellpadding="2" cellspacing="0" border="0">
+              <tr>
+                <td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link1.jpg" width="135" height="42" /></a></td>
+                <td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link2.jpg" width="135" height="42" /></a></td>
+				<td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link3.jpg" width="135" height="42" /></a></td>
+				<td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link4.jpg" width="135" height="42" /></a></td>
+				<td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link5.jpg" width="135" height="42" /></a></td>
+				<td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link6.jpg" width="135" height="42" /></a></td>
+				<td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link7.jpg" width="135" height="42" /></a></td>
+				<td class="td1"><a href="#" target="_blank"><img src="__STATIC__/images/link8.jpg" width="135" height="42" /></a></td>
+              </tr>
+            </table></td>
+          <td id="colee_left2" valign="top"></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+//使用div时，请保证colee_left2与colee_left1是在同一行上.
+var speed=48//速度数值越大速度越慢
+var colee_left2=document.getElementById("colee_left2");
+var colee_left1=document.getElementById("colee_left1");
+var colee_left=document.getElementById("colee_left");
+colee_left2.innerHTML=colee_left1.innerHTML
+function Marquee3(){
+if(colee_left2.offsetWidth-colee_left.scrollLeft<=0)//offsetWidth 是对象的可见宽度
+colee_left.scrollLeft-=colee_left1.offsetWidth//scrollWidth 是对象的实际内容的宽，不包边线宽度
+else{
+colee_left.scrollLeft++
+}
+}
+var MyMar3=setInterval(Marquee3,speed)
+colee_left.onmouseover=function() {clearInterval(MyMar3)}
+colee_left.onmouseout=function() {MyMar3=setInterval(Marquee3,speed)}
+</script>
+    <!--向左滚动代码结束-->
+  </div>
+  <div class="fnav"><a href="#">关于我们</a>|<a href="#">免责条款</a>|<a href="#">加入收藏</a>|<a href="#">设为首页</a></div>
+  <div class="copyright">版权所有：凤阳县旅游局 电话：0550-6629038 地址：凤阳县东华路109号 邮编：233100 邮箱：fyx_lyj@163.com<br />
+    皖ICP备07501184号 Designed by <a href="#">samxinnet</a></div>
+</div>
+</body>
+</html>

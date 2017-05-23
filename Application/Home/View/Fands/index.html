@@ -1,0 +1,63 @@
+<include file='Public/header'/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 美食与特产</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+  <!--美食-->
+<div class="column4">
+<div class="title5"><a href="{:U('fands/food')}">更多></a><h1>美食</h1></div>
+<ul class="list9">
+  <?php foreach($food as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+<!--特产-->
+<div class="column4">
+<div class="title5"><a href="{:U('fands/techang')}">更多></a><h1>特产</h1></div>
+<ul class="list9">
+  <?php foreach($techang as $v):?>
+<li>
+<span class="lypic"><a  href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" width="201" height="141" /></a></span>
+<span class="lytext"><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></span>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--美食推荐-->
+<div class="column5">
+<div class="title5"><h1>推荐美食</h1></div>
+<?php foreach($foodright as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h2><p><?php echo mb_substr($v['descs'],0,20).'...';?></p>		</div>
+</div>
+<?php endforeach;?>
+<div class="clear"></div>
+</div>
+<!--特产推荐-->
+<div class="column5">
+<div class="title5"><h1>推荐特产</h1></div>
+<?php foreach($techangright as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('fands/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h2><p><?php echo mb_substr($v['descs'],0,20).'...';?></p>		</div>
+</div>
+<?php endforeach;?>
+<div class="clear"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<include file='Public/footer'/>

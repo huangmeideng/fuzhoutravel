@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>福州市旅游网</title>
+<meta name="keywords" content="福州市旅游网" />
+<meta name="description" content="福州市旅游网" />
+<link href="__STATIC__/css/whir_css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/superslide.2.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/column.js"></script>
+<script type="text/javascript" src="__STATIC__/js/min_contentslider.js"></script>
+<script src="__STATIC__/user/js/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/user/js/bootstrap.min.js"></script>
+<link href="__STATIC__/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="__STATIC__/user/css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="__STATIC__/user/css/buttons.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="__STATIC__/user/css/font-awesome.min.css"/>
+<link rel="icon" href="__STATIC__/user/img/favicon.ico" mce_href="__STATIC__/user/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="__STATIC__/user/img/favicon.ico">
+<link href="__STATIC__/user/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!--header-->
+<div id="header">
+  <div class="top">
+    <div class="time">
+      <script language='JavaScript'>
+var enabled = 0; today = new Date();
+var day; var date;
+if(today.getDay()==0) day = " 星期日"
+if(today.getDay()==1) day = " 星期一"
+if(today.getDay()==2) day = " 星期二"
+if(today.getDay()==3) day = " 星期三"
+if(today.getDay()==4) day = " 星期四"
+if(today.getDay()==5) day = " 星期五"
+if(today.getDay()==6) day = " 星期六"
+document.fgColor = "000000";
+date = "今天是:" + (today.getFullYear()) + "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + day +"";
+document.write(date);
+// -->
+</script>
+    </div>
+    <div class="weather">
+      <iframe width="450" scrolling="no" height="18" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23555555&icon=3&py=fuzhou&wind=0&num=1"></iframe>
+    </div>
+    <div class="tnav"><if condition="session('?userinfo')"><a href="{:U('User/user')}" style="color:aqua;">欢迎您&nbsp;{:session('userinfo.username')}</a>|<a href="{:U('User/logout')}" style="color:aqua;">退出</a><else/><a href="{:U('User/login')}">登录</a>|<a href="{:U('User/register')}">注册</a></if></div>
+  </div>
+  <div class="nav">
+    <div class="navmenu">
+      <div class="logo"><a href="{:U('Index/index')}"><img src="__STATIC__/images/logo.png" width="190" height="70" /></a></div>
+      <ul>
+        <li><a href="{:U('Page/index')}">福州概况</a></li>
+        <li><a href="{:U('Post/index')}">资讯信息</a></li>
+        <li><a href="{:U('Play/index')}">节庆活动</a></li>
+        <li><a href="{:U('Spot/index')}">畅游福州</a></li>
+        <li><a href="{:U('Fands/index')}">美食与特产</a></li>
+        <li><a href="{:U('Route/index')}">主题线路</a></li>
+        <li><a href="{:U('Sandn/index')}">攻略与游记</a></li>
+        <li><a href="{:U('Hotels/index')}">酒店一览</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--线路筛选列表-->
+<div class="find">
+<div class="find-left left"><div class="title">热门线路推荐</div>
+  <?php foreach($hotroute as $v):?>
+  <ul class="item left">
+		<li><a href="{:U('route/view?id=')}<?php echo $v['id'];?>" target="_blank"><img src="<?php echo $v['pic'];?>" width="180px" height="180px"></a></li>
+		<li class="product"><a href="{:U('route/view?id=')}<?php echo $v['id'];?>" target="_blank"><?php echo $v['name'];?></a></li>
+		<li class="price">￥<?php echo $v['price'];?></li>
+	</ul>
+  <?php endforeach;?>
+</div>
+<div class="find-right left">
+	<ul class="filter">
+			<li><p>地区：</p>
+				<a href="{:mkFilterHotelsURL('area')}" class="areamain curr" >不限</a>
+				<foreach name="area" item="v" key="k">
+					<a href="{:mkFilterHotelsURL('area',$v)}"class="areasub" >{$v}</a>
+				</foreach>
+			</li>
+	</ul>
+  <!--筛选结果-->
+  <div class="find-item">
+    <?php foreach($data as $v):?>
+		<ul class="item left">
+			<li><a href="{:U('Hotels/view?id=')}<?php echo $v['id'];?>" target="_blank"><img src="<?php echo $v['pic'];?>" width="220px" height="220px"></a></li>
+			<li class="product"><a href="{:U('route/view?id=')}<?php echo $v['id'];?>" target="_blank"><?php echo $v['address'];?></a></li>
+			<li class="price" style="font-size:15px;"><?php echo $v['name'];?></li>
+		</ul>
+    <?php endforeach;?>
+		<!--</empty>-->
+	</div>
+</div>
+</div>
+<!--footer-->
+<div id="footer">
+<div class="links">
+    <!--下面是向左滚动代码-->
+    <div id="colee_left" style="overflow:hidden;width:1200px; padding:0px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td id="colee_left1" valign="top"><table cellpadding="2" cellspacing="0" border="0">
+              <tr>
+                 <?php foreach($links as $v):?>
+                <td class="td1"><a href="<?php echo $v['url'];?>" target="_blank"><img src="<?php echo $v['pic'];?>" width="135" height="42" /></a></td>
+                <?php endforeach;?>
+              </tr>
+            </table></td>
+          <td id="colee_left2" valign="top"></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+//使用div时，请保证colee_left2与colee_left1是在同一行上.
+var speed=48//速度数值越大速度越慢
+var colee_left2=document.getElementById("colee_left2");
+var colee_left1=document.getElementById("colee_left1");
+var colee_left=document.getElementById("colee_left");
+colee_left2.innerHTML=colee_left1.innerHTML
+function Marquee3(){
+if(colee_left2.offsetWidth-colee_left.scrollLeft<=0)//offsetWidth 是对象的可见宽度
+colee_left.scrollLeft-=colee_left1.offsetWidth//scrollWidth 是对象的实际内容的宽，不包边线宽度
+else{
+colee_left.scrollLeft++
+}
+}
+var MyMar3=setInterval(Marquee3,speed)
+colee_left.onmouseover=function() {clearInterval(MyMar3)}
+colee_left.onmouseout=function() {MyMar3=setInterval(Marquee3,speed)}
+</script>
+    <!--向左滚动代码结束-->
+  </div>
+  <div class="fnav"><a href="#">关于我们</a>|<a href="#">免责条款</a>|<a href="#">加入收藏</a>|<a href="#">设为首页</a></div>
+  <div class="copyright">版权所有：福州市旅游局 电话：0591-83355312 地址：仓山区南江滨西大道东部办公区4座4层  邮编：350007 邮箱：fuzhoutravel@163.com<br />
+    闽ICP备14008899号 Designed by <a href="#">huangmeideng.github.com</a></div>
+</div>
+<script type='text/javascript'>
+  $('.areamain').click(function(){
+    $('a').removeClass();
+    $(this).addClass('curr');
+  });
+  $('.areasub').click(function(){
+    $('a').removeClass('curr');
+    //$(this).addClass('curr');
+    $(this).addClass('curr');
+  });
+</script>
+</body>
+</html>

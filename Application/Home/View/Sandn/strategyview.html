@@ -1,0 +1,187 @@
+<include file="Public/header" />
+<style>
+    a:hover{color: #F7B824;}
+</style>
+<div id="subbox">
+<div class="position">当前位置：<a href="#">首页</a> >官方攻略 </div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--攻略详情-->
+<div class="column4">
+<div class="title5">
+    <a href="javascript:;" style="font-size:15px;" onclick="praise('{$data.id}')" id="praise">点赞({$data.praise})</a><a class='layui-icon' style="color:#FF5722;font-size:20px;">&#xe650;</a>
+    <a href="#" style="font-size:15px;" id='share' onclick='share()'>分享</a><a href="#" class="layui-icon" style="color:#5FB878;font-size:20px;" onclick="share()">&#xe641;</a>
+    <if condition="$ifcollection eq 0">
+        <a href="javascript:;" style="font-size:15px;" onclick="collection('{$data.id}','{$data.cate_id}')" id='collection'>收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="collection('{$data.id}','{$data.cate_id}')" id='iconcollection'>&#xe600;</a>
+        <elseif condition="$ifcollection eq 1" />
+         <a href="javascript:;" style="font-size:15px;" onclick="reduce('{$data.id}','{$data.cate_id}')" id='collection'>已收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="reduce('{$data.id}','{$data.cate_id}')" id='iconcollection'>&#xe600;</a>
+    </if>
+    <h1>{$data.title}</h1>
+</div>
+<hr>
+<div class='reason'>
+    <p style="display:inline-block;height:30px;width:100px;background-color:#5FB878;text-align:center;color:aliceblue;font-size:medium;" >推荐理由</p>
+    <p style="font-family:monospace;font-size:large;">{$data.reason}</p>
+</div>
+<hr>
+<div class='areas'>
+    <span><img src="__STATIC__/images/areas.png"><span>
+    <span style="color:blue;font-size:large;">
+        <?php
+            $count=count($areas);
+            if($count<=1){
+                echo $areas[0];
+            }else{
+                for($i=0;$i<$count;$i++){
+                if($i==($count-1)){
+                    echo $areas[$i];
+                    continue;
+                }
+                echo $areas[$i].'----';
+            }
+            }
+        ?>
+    <span>
+</div>
+<hr>
+<div class='spots'>
+    <span><img src="__STATIC__/images/spots.png"></span>
+    <span style="color:orange;font-size:large;">
+         <?php
+            $count=count($spotsname);
+            if($count<=1){
+                echo $spotsname[0];
+            }else{
+                for($i=0;$i<$count;$i++){
+                if($i==($count-1)){
+                    echo $spotsname[$i];
+                    continue;
+                }
+                echo $spotsname[$i].'----';
+            }
+            }
+        ?>
+    </span>
+</div>
+<hr>
+<div class="content">
+    <p style="display:inline-block;height:30px;width:100px;background-color:deepskyblue;text-align:center;color:aliceblue;font-size:medium;" >攻略详情</p>
+    <?php echo htmlspecialchars_decode($data['content']);?>
+</div>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--热门游记-->
+<div class="column5">
+<div class="title5"><a href="#" style="font-size:15px;" onclick="share()">分享</a><a href="#" class="layui-icon" style="color:#5FB878;font-size:20px;" onclick="share()">&#xe641;</a><h1>攻略地图</h1></div>
+<div id="map" style="width:310px;height:310px">
+</div>
+</div>
+</div>
+<input type='hidden' id='spotsaddress' value="{$spotsaddress}">
+</div>
+
+</div>
+<script type="text/javascript">
+var spotsaddress=$('#spotsaddress').val().split(',');
+//alert(spotsaddress); 
+var map = new BMap.Map("map");
+map.enableScrollWheelZoom(true);    
+var point = new BMap.Point(119.370203,26.178018);    
+map.centerAndZoom(point, 15);    
+// var newpoint=new BMap.Point(119.610405,26.458508);
+// var marker = new BMap.Marker(newpoint);        // 创建标注    
+// map.addOverlay(marker);                     // 将标注添加到地图中
+var myGeo = new BMap.Geocoder();
+	// 将地址解析结果显示在地图上,并调整地图视野
+     var opts = {
+	   width : 200,     // 信息窗口宽度
+	   height: 100,     // 信息窗口高度
+	   title : "地址信息" , // 信息窗口标题
+	   enableMessage:true,//设置允许信息窗发送短息
+	   message:"kinano"
+	 }
+	for(i=0;i<spotsaddress.length;i++){
+        myGeo.getPoint(spotsaddress[i], function(point){
+		if (point) {
+			map.centerAndZoom(point, 10);
+            // var marker=new BMap.Marker(point);
+             var marker=new BMap.Marker(point);
+            var p=marker.getPosition();
+            var l=p.lng+','+p.lat;
+            //var newl=l.addressComponents;
+            //alert(p.addressComponents);
+			map.addOverlay(marker);
+            var infoWindow = new BMap.InfoWindow(l, opts);  // 创建信息窗口对象 
+	        marker.addEventListener("click", function(){          
+		    map.openInfoWindow(infoWindow,point); //开启信息窗口
+         });  
+		}else{
+			alert("地图错误!");
+		}
+	}, "福州市");
+    }
+</script>
+<script type="text/javascript">
+     layui.use('layer', function(){
+        var layer = layui.layer;
+        });
+    function collection(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/add?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('收藏成功',{icon:1});
+                     //$('#collection').text('已收藏');
+                     $('#collection').text("已收藏("+data.collection_number+")").attr('onclick',"reduce('{$data.id}','{$data.cate_id}')");
+                     $('#iconcollection').attr('onclick',"reduce('{$data.id}','{$data.cate_id}')");
+                }else{
+                    layer.confirm('收藏失败，请先登录',{icon:2},function(){
+                        window.location.href="{:U('User/login')}";
+                    });
+                }
+            }
+        });
+    }
+    function reduce(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                    layer.msg('删除收藏成功',{icon:1});
+                    $('#collection').text("收藏("+data.collection_number+")").attr('onclick',"collection('{$data.id}','{$data.cate_id}')");
+                    $('#iconcollection').attr('onclick',"collection('{$data.id}','{$data.cate_id}')");
+                }else{
+                    layer.msg('删除收藏失败',{icon:2});
+                }
+            }
+        } 
+        );
+    }
+    function share(){
+        layer.open({
+            type:2,
+            title:'分享',
+            content:["{:U('Sandn/share')}",'no'],
+        });
+    }
+    function praise(id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Sandn/strategy_praise?id=')}"+id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('点赞成功',{icon:1});
+                     $('#praise').text("点赞("+data.praise+")");
+                 }else{
+                     layer.msg('你点过赞了',{icon:2});
+                 }
+            }
+        });
+    }  
+</script>
+<include file="PUblic/footer" />

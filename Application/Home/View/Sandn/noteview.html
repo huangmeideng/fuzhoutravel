@@ -1,0 +1,282 @@
+<include file="Public/header" />
+<style>
+    a:hover{color: #F7B824;}
+</style>
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('Index/index')}">首页</a> >个人游记 </div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--游记详情-->
+<div class="column4">
+<div class="title5">
+    <a href="javascript:;" style="font-size:15px;" onclick="praise('{$data.id}')" id="praise">点赞({$data.praise})</a><a class='layui-icon' style="color:#FF5722;font-size:20px;">&#xe650;</a>
+    <a href="#" style="font-size:15px;" id='share' onclick='share()'>分享</a><a href="#" class="layui-icon" style="color:#5FB878;font-size:20px;" onclick="share()">&#xe641;</a>
+    <if condition="$ifcollection eq 0">
+        <a href="javascript:;" style="font-size:15px;" onclick="collection('{$data.id}','{$data.cate_id}')" id='collection'>收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="collection('{$data.id}','{$data.cate_id}')" id='iconcollection'>&#xe600;</a>
+        <elseif condition="$ifcollection eq 1" />
+         <a href="javascript:;" style="font-size:15px;" onclick="reduce('{$data.id}','{$data.cate_id}')" id='collection'>已收藏({$collection_number})</a><a href="javascript:;" class='layui-icon' style="color:#1E9FFF;font-size:20px;" onclick="reduce('{$data.id}','{$data.cate_id}')" id='iconcollection'>&#xe600;</a>
+    </if>
+    <h1 style="font-size:larger;">{$data.title}</h1>
+</div>
+<hr>
+<div class='person'>
+    <!--<p style="display:inline-block;height:30px;width:100px;background-color:#5FB878;text-align:center;color:aliceblue;font-size:medium;" >{$person.username}</p>-->
+    <p style="font-family:monospace;font-size:large;text-align:center;"><span style="color:red;">作者:{$person.username}</span>&nbsp;&nbsp;&nbsp;<span style="color:royalblue;">发表时间：{$data.time}</span></p>
+</div>
+<hr>
+<div class='areas'>
+    <span><img src="__STATIC__/images/areas.png"><span>
+    <span style="color:blue;font-size:large;">
+        <?php
+            $count=count($areas);
+            if($count<=1){
+                echo $areas[0];
+            }else{
+                for($i=0;$i<$count;$i++){
+                if($i==($count-1)){
+                    echo $areas[$i];
+                    continue;
+                }
+                echo $areas[$i].'----';
+            }
+            }
+        ?>
+    <span>
+</div>
+<hr>
+<div class='spots'>
+    <span><img src="__STATIC__/images/spots.png"></span>
+    <span style="color:orange;font-size:large;">
+         <?php
+            $count=count($spotsname);
+            if($count<=1){
+                echo $spotsname[0];
+            }else{
+                for($i=0;$i<$count;$i++){
+                if($i==($count-1)){
+                    echo $spotsname[$i];
+                    continue;
+                }
+                echo $spotsname[$i].'----';
+            }
+            }
+        ?>
+    </span>
+</div>
+<hr>
+<div class="content">
+    <p style="display:inline-block;height:30px;width:100px;background-color:deepskyblue;text-align:center;color:aliceblue;font-size:medium;" >游记详情</p>
+    <?php echo htmlspecialchars_decode($data['content']);?>
+</div>
+<hr>
+<p style="font-size:x-large;">写评论</p>
+<div class='comment-area'>
+    <!--发表评论-->
+    <div class="comment">
+    <textarea id='comment-content'></textarea>
+    <span class="layui-btn layui-btn-normal layui-btn-radius" id='addComment' onclick="addComment()" parentid='0' dataid='{$data.id}' cateid='{$data.cate_id}'>发表评论</span>
+    </div>
+    <!--end-->
+    <div class="comment-filed-list" >
+	  	<div><span style="font-size:20px;">全部评论</span></div>
+	  	<div class="comment-list" >
+	  		<!--一级评论列表begin-->
+	  		<ul class="comment-ul">	  	
+	  			<volist name="comment" id="data">	  				
+	  				<li comment_id="{$data.id}">	  				
+	  				<div class='comment-box'>
+	  					<div style="float:left;margin:0 20px 0 0;" class='comment-pic'>
+  							<img class="head-pic"  src="{$data.avatar}" alt="无头像" style="width:50px;height:50px;border-radius:50%; overflow:hidden;">	
+  						</div>
+						<div class="comment-main">
+							<div class="comment-user">
+	  						<span style="font-size:18px;">{$data.username}</span>
+	  						</div>
+							<div class="comment-content">
+		  						<p style="line-height:24px;font-size:20px;">
+		  							<?php echo htmlspecialchars_decode($data['content']);?>
+		  						</p>
+							</div>
+		  					<div class="cm-footer" style="margin:20px 0 0 0;">
+                                <span style="font-size:15px;">发表于：{$data.time}</span>
+		  						<a class="comment-reply" reply-id="{$data.id}" href="javascript:;" style="display:inline-block;float:right;color:#0066CC;" onclick='replay()'>回复</a>
+                                  <div class="newreplay" style="display:none;">
+                                        <textarea class='replay-content'></textarea>
+                                        <span class="layui-btn layui-btn-normal layui-btn-radius" id='addComment' onclick="addComment()" parentid='0' dataid='{$data.id}' cateid='{$data.cate_id}'>回复</span>
+                                  </div>		  				
+		  					</div>	
+						</div>	  					  						  				
+	  				</div>
+	  			</li><hr style="height:1px;border:none;border-top:1px dashed grey;"/>
+	  			</volist>	  				  				  				  				  
+	  		</ul>
+	  		<!--一级评论列表end-->
+	  	</div>		
+  	</div>
+</div>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--游记地图-->
+<div class="column5">
+<div class="title5"><a href="#" style="font-size:15px;" onclick="share()">分享</a><a href="#" class="layui-icon" style="color:#5FB878;font-size:20px;" onclick="share()">&#xe641;</a><h1>游记地图</h1></div>
+<div id="map" style="width:310px;height:310px">
+</div>
+</div>
+</div>
+<input type='hidden' id='spotsaddress' value="{$spotsaddress}">
+</div>
+
+</div>
+<script type="text/javascript">
+var spotsaddress=$('#spotsaddress').val().split(',');
+//alert(spotsaddress); 
+var map = new BMap.Map("map");
+map.enableScrollWheelZoom(true);    
+var point = new BMap.Point(119.370203,26.178018);    
+map.centerAndZoom(point, 15);    
+// var newpoint=new BMap.Point(119.610405,26.458508);
+// var marker = new BMap.Marker(newpoint);        // 创建标注    
+// map.addOverlay(marker);                     // 将标注添加到地图中
+var myGeo = new BMap.Geocoder();
+	// 将地址解析结果显示在地图上,并调整地图视野
+     var opts = {
+	   width : 200,     // 信息窗口宽度
+	   height: 100,     // 信息窗口高度
+	   title : "地址信息" , // 信息窗口标题
+	   enableMessage:true,//设置允许信息窗发送短息
+	   message:"kinano"
+	 }
+	for(i=0;i<spotsaddress.length;i++){
+        myGeo.getPoint(spotsaddress[i], function(point){
+		if (point) {
+			map.centerAndZoom(point, 10);
+            // var marker=new BMap.Marker(point);
+             var marker=new BMap.Marker(point);
+            var p=marker.getPosition();
+            var l=p.lng+','+p.lat;
+            //var newl=l.addressComponents;
+            //alert(p.addressComponents);
+			map.addOverlay(marker);
+            var infoWindow = new BMap.InfoWindow(l, opts);  // 创建信息窗口对象 
+	        marker.addEventListener("click", function(){          
+		    map.openInfoWindow(infoWindow,point); //开启信息窗口
+         });  
+		}else{
+			alert("地图错误!");
+		}
+	}, "福州市");
+    }
+</script>
+<script type="text/javascript">
+    var comment;
+    var layedit;
+    var layer;
+     layui.use(['layer','layedit'], function(){
+        layer = layui.layer
+        ,layedit = layui.layedit;
+        comment=layedit.build('comment-content',{
+             tool: ['face', 'link', 'unlink', '|', 'left', 'center', 'right']
+            ,height: 100
+        });
+        var replay=layedit.build('replay-content',{
+             tool: ['face', 'link', 'unlink', '|', 'left', 'center', 'right']
+            ,height: 100
+        });
+        });
+    function collection(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/add?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('收藏成功',{icon:1});
+                     //$('#collection').text('已收藏');
+                     $('#collection').text("已收藏("+data.collection_number+")").attr('onclick',"reduce('{$data.id}','{$data.cate_id}')");
+                     $('#iconcollection').attr('onclick',"reduce('{$data.id}','{$data.cate_id}')");
+                }else{
+                    layer.confirm('收藏失败，请先登录',{icon:2},function(){
+                    });
+                }
+            }
+        });
+    }
+    function reduce(id,cate_id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Collection/reduce?id=')}"+id+"&cate_id="+cate_id,
+            success:function(data){
+                if(data.key==1){
+                    layer.msg('删除收藏成功',{icon:1});
+                    $('#collection').text("收藏("+data.collection_number+")").attr('onclick',"collection('{$data.id}','{$data.cate_id}')");
+                    $('#iconcollection').attr('onclick',"collection('{$data.id}','{$data.cate_id}')");
+                }else{
+                    layer.msg('删除收藏失败',{icon:2});
+                }
+            }
+        } 
+        );
+    }
+    function share(){
+        layer.open({
+            type:2,
+            title:'分享',
+            content:["{:U('Sandn/share')}",'no'],
+        });
+    }
+    function praise(id){
+        $.ajax({
+            type:'get',
+            url:"{:U('Sandn/note_praise?id=')}"+id,
+            success:function(data){
+                if(data.key==1){
+                     layer.msg('点赞成功',{icon:1});
+                     $('#praise').text("点赞("+data.praise+")");
+                 }else{
+                     layer.msg('你点过赞了',{icon:2});
+                 }
+            }
+        });
+    }
+    //   $('#add').click(function(){
+    //         var text=layedit.getContent(comment);
+    //         alert(text);
+    //     });
+    function addComment(id,cate_id){
+        var content=layedit.getContent(comment);
+        if(!content){
+            layer.msg('请输入内容',{icon:2});
+        }else{
+            var jsondata={
+            "content":content,
+            "parent_id":$('#addComment').attr('parentid'),
+            "product_id":$('#addComment').attr('dataid'),
+            "cate_id":$('#addComment').attr('cateid')
+        };
+        $.ajax({
+            type:'post',
+            url:"{:U('Comment/addComment')}",
+            data:{getdata:jsondata},
+            dataType:'json',
+            success:function(data){
+                if(data.key==1){
+                    layer.msg('评论成功',{icon:1});
+                    var newli="<li comment_id='"+data.id+"'><div class='comment-box'><div style='float:left;margin:0 20px 0 0;' class='comment-pic'><img class='head-pic'  src='"+data.avatar+"' alt='无头像' style='width:50px;height:50px;border-radius:50%; overflow:hidden;'></div><div class='comment-main'><div  class='comment-user'><span style='font-size:18px;'>"+data.username+"</span></div><div class='comment-content'><p style='line-height:24px;font-size:20px;'>"+data.content+"</p></div><div class='cm-footer' style='margin:20px 0 0 0;'><span style='font-size:15px;'>发表于："+data.time+"</span><a class='comment-reply' reply-id='"+data.id+"' href='javascript:;' style='display:inline-block;float:right;color:#0066CC;' onclick='replay()'>回复</a><div class='comment' style='display:none;' id='comment-replay'><textarea id='replay-content'></textarea><span class='layui-btn layui-btn-normal layui-btn-radius' id='addComment' onclick='addComment()' parentid='0' dataid='"+data.id+"' cateid='"+data.cate_id+"'>回复</span></div></div></div><hr style='height:1px;border:none;border-top:1px dashed grey;'/></li>";
+                    // var newli="<li comment_id='"+$data.id+"'><div class='comment-box'><div style='float:left;margin:0 20px 0 0;' class='comment-pic'><img class='head-pic'  src='"+data.avatar+"' alt='无头像' style='width:50px;height:50px;border-radius:50%; overflow:hidden;'></div><div class='comment-main'><div class='comment-user'><span style='font-size:18px;'>"+data.username+"</span></div><div class='comment-content'><p style='line-height:24px;font-size:20px;'>"+data.content+"</p></div><div class='cm-footer' style='margin:20px 0 0 0;'><span style='font-size:15px;'>发表于："+data.time+"</span><a class='comment-reply' reply-id='"+data.id+"' href='javascript:;' style='display:inline-block;float:right;color:#0066CC;' onclick='replay()'>回复</a><div class='comment' style='display:none;' id='comment-replay'><textarea id='replay-content'></textarea><span class='layui-btn layui-btn-normal layui-btn-radius' id='addComment' onclick='addComment()' parentid='0' dataid='"+data.id+"' cateid='"+data.cate_id+"'>回复</span></div></div></div></div></li><hr style='height:1px;border:none;border-top:1px dashed grey;'/>";
+                    $(".comment-ul").prepend(newli);
+                }else if(data.key==0){
+                    layer.msg('评论失败',{icon:2});
+                }else if(data.key==2){
+                    layer.msg('请先登录',{icon:2});
+                }
+            }
+        });
+        }
+    }
+    // function replay(){  
+    //     $('.newreplay').css('display','block');
+    // }
+</script>
+<include file="Public/footer" />

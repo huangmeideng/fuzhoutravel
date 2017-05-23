@@ -1,0 +1,53 @@
+<include file="Public/header"/>
+<!--中间内容-->
+<div id="subbox">
+<div class="position">当前位置：<a href="{:U('index/index')}">首页</a> > 旅行社列表</div>
+<div class="mainsub">
+<!--左侧部分-->
+<div class="left870">
+<!--旅游企业-->
+<div class="column4">
+<div class="title5"><h1>旅行社列表</h1></div>
+<div class='list'>
+    <?php foreach($list as $v):?>
+    <div class='item' style="padding: 20px 20px 17px;border: 1px solid #ddd;margin: 0 0 40px;zoom: 1;">
+        <div class='thumb' style="float:left;margin:10px 20px 0 10px;">
+            <a href="{:U('Agency/view?id=')}<?php echo $v['id'];?>"><img src="<?php echo $v['pic'];?>" alt='无图片' style="width:210px;height:140px;"></a>
+        </div>
+        <div class='main'>
+            <h2><a href='{:U('Agency/view?id=')}<?php echo $v['id'];?>' style="font-size:20px;color:red;display:inline-block;margin:10px 0 25px 0;"><?php echo $v['name'];?></a></h2>
+            <div class='content'>
+                <p style="margin:0 0 25px 0;">
+                <span style="font-size:15px;">联系人：</span><?php echo $v['people'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="font-size:15px;">经营许可证:</span><?php echo $v['license'];?><br>
+                <span style="display:inline-block;margin:5px 0 0 0;"><span style='font-size:15px;'>联系电话：</span><span style="font-size:25px;color:#f60;"><?php echo $v['telephone'];?></span></span>
+                </p>
+                <span style="font-size:15px;">地址:</span><?php echo $v['address'];?><br>
+            </div>
+        </div>
+    </div>
+    <?php endforeach;?>
+    <div class='paging text-right' style="text-align:center;">{$page}</div>
+</div>
+</div>
+</div>
+<!--右侧部分-->
+<div class="right310">
+<!--景点推荐-->
+<div class="column5">
+<div class="title5"><a href="{:U('Spot/index')}">更多></a><h1>景点推荐</h1></div>
+<?php foreach($hotspot as $v):?>
+<div class="topnews1">
+<div class="tjimg"><img src="<?php echo $v['pic'];?>" width="108" height="80" /></div>
+<div class="tjt"><h2><a href="{:U('Spot/view?id=')}<?php echo $v['id'];?>"><?php echo $v['name'];?></a></h2><p><?php echo mb_substr($v['descs'],0,20).'...';?></p>
+</div>
+</div>
+<?php endforeach;?>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<include file="Public/footer"/>
